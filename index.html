@@ -50,6 +50,38 @@
             --border-card: rgba(15, 23, 42, 0.08);
         }
 
+        [data-theme="cyberpunk"] {
+            /* Neon Cyberpunk Theme Colors */
+            --bg-main: #0b0e14;
+            --bg-card: rgba(16, 22, 34, 0.6);
+            --bg-nav: rgba(11, 14, 20, 0.8);
+            --border-glow: rgba(0, 240, 255, 0.3);
+            --primary: #ff007f; /* Neon Pink */
+            --primary-glow: rgba(255, 0, 127, 0.25);
+            --secondary: #00f0ff; /* Neon Cyan */
+            --secondary-glow: rgba(0, 240, 255, 0.25);
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-inverse: #0f172a;
+            --border-card: rgba(0, 240, 255, 0.08);
+        }
+
+        [data-theme="emerald"] {
+            /* Forest Emerald Theme Colors */
+            --bg-main: #06100c;
+            --bg-card: rgba(13, 29, 23, 0.6);
+            --bg-nav: rgba(6, 16, 12, 0.8);
+            --border-glow: rgba(52, 211, 153, 0.3);
+            --primary: #10b981; /* Emerald Green */
+            --primary-glow: rgba(16, 185, 129, 0.25);
+            --secondary: #34d399; /* Mint */
+            --secondary-glow: rgba(52, 211, 153, 0.25);
+            --text-main: #ecfdf5;
+            --text-muted: #a7f3d0;
+            --text-inverse: #06100c;
+            --border-card: rgba(52, 211, 153, 0.08);
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -1424,10 +1456,17 @@
             particlesArray = [];
             let numberOfParticles = (canvas.width * canvas.height) / 11000;
             numberOfParticles = Math.min(numberOfParticles, 120); // Cap particles
-            
-            const isLight = document.documentElement.getAttribute("data-theme") === "light";
-            const particleColor = isLight ? "rgba(109, 40, 217, 0.15)" : "rgba(139, 92, 246, 0.3)";
-            
+
+            const theme = document.documentElement.getAttribute("data-theme") || "dark";
+            let particleColor = "rgba(139, 92, 246, 0.3)"; // default dark (violet)
+            if (theme === "light") {
+                particleColor = "rgba(109, 40, 217, 0.15)";
+            } else if (theme === "cyberpunk") {
+                particleColor = "rgba(0, 240, 255, 0.25)";
+            } else if (theme === "emerald") {
+                particleColor = "rgba(52, 211, 153, 0.25)";
+            }
+
             for (let i = 0; i < numberOfParticles; i++) {
                 let size = (Math.random() * 2) + 1;
                 let x = (Math.random() * (innerWidth - size * 2) + size * 2);
@@ -1439,8 +1478,15 @@
         }
 
         function connectParticles() {
-            const isLight = document.documentElement.getAttribute("data-theme") === "light";
-            const lineColor = isLight ? "rgba(109, 40, 217, 0.05)" : "rgba(139, 92, 246, 0.08)";
+            const theme = document.documentElement.getAttribute("data-theme") || "dark";
+            let lineColor = "rgba(139, 92, 246, 0.08)"; // default dark
+            if (theme === "light") {
+                lineColor = "rgba(109, 40, 217, 0.05)";
+            } else if (theme === "cyberpunk") {
+                lineColor = "rgba(0, 240, 255, 0.06)";
+            } else if (theme === "emerald") {
+                lineColor = "rgba(52, 211, 153, 0.06)";
+            }
             const maxDistance = 140;
 
             for (let a = 0; a < particlesArray.length; a++) {
@@ -1523,35 +1569,70 @@
             const langsImg = document.getElementById("github-langs-card");
             if (!statsImg || !langsImg) return;
 
-            const isLight = document.documentElement.getAttribute("data-theme") === "light";
+            const theme = document.documentElement.getAttribute("data-theme") || "dark";
 
-            const titleColor = isLight ? "9f1239" : "f43f5e";
-            const textColor = isLight ? "0f172a" : "f3f4f6";
-            const iconColor = isLight ? "6d28d9" : "8b5cf6";
+            let titleColor = "f43f5e";
+            let textColor = "f3f4f6";
+            let iconColor = "8b5cf6";
+
+            if (theme === "light") {
+                titleColor = "9f1239";
+                textColor = "0f172a";
+                iconColor = "6d28d9";
+            } else if (theme === "cyberpunk") {
+                titleColor = "ff007f";
+                textColor = "e2e8f0";
+                iconColor = "00f0ff";
+            } else if (theme === "emerald") {
+                titleColor = "10b981";
+                textColor = "ecfdf5";
+                iconColor = "34d399";
+            }
 
             // Set SVG source urls with transparency
             statsImg.src = `https://github-readme-stats.vercel.app/api?username=david1-max&show_icons=true&bg_color=00000000&title_color=${titleColor}&text_color=${textColor}&icon_color=${iconColor}&border_color=00000000&hide_border=true&count_private=true`;
             langsImg.src = `https://github-readme-stats.vercel.app/api/top-langs/?username=david1-max&layout=compact&bg_color=00000000&title_color=${titleColor}&text_color=${textColor}&icon_color=${iconColor}&border_color=00000000&hide_border=true&count_private=true`;
         }
 
-        // Theme Toggle Logic
+        // Multi-Theme System Logic
         const themeToggle = document.getElementById("theme-toggle");
         const themeIcon = document.getElementById("theme-icon");
         const htmlElement = document.documentElement;
 
+        const themes = ["dark", "light", "cyberpunk", "emerald"];
+        const themeIcons = {
+            "dark": "fa-moon",
+            "light": "fa-sun",
+            "cyberpunk": "fa-bolt",
+            "emerald": "fa-leaf"
+        };
+
+        // Load saved theme or default to dark
+        let currentThemeIndex = 0;
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        const savedIndex = themes.indexOf(savedTheme);
+        if (savedIndex !== -1) {
+            currentThemeIndex = savedIndex;
+        }
+
+        function applyTheme(themeName) {
+            htmlElement.setAttribute("data-theme", themeName);
+            localStorage.setItem("theme", themeName);
+
+            // Update icon class
+            themeIcon.className = "fa-solid " + themeIcons[themeName];
+
+            // Re-render components dependent on theme
+            if (typeof initParticles === "function") initParticles();
+            if (typeof updateGithubStatsImages === "function") updateGithubStatsImages();
+        }
+
+        // Apply theme immediately
+        applyTheme(themes[currentThemeIndex]);
+
         themeToggle.addEventListener("click", () => {
-            const currentTheme = htmlElement.getAttribute("data-theme");
-            if (currentTheme === "dark") {
-                htmlElement.setAttribute("data-theme", "light");
-                themeIcon.classList.remove("fa-sun");
-                themeIcon.classList.add("fa-moon");
-            } else {
-                htmlElement.setAttribute("data-theme", "dark");
-                themeIcon.classList.remove("fa-moon");
-                themeIcon.classList.add("fa-sun");
-            }
-            initParticles(); // Reinitialize particles with the theme-specific colors
-            updateGithubStatsImages(); // Update cards to match the new theme colors
+            currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+            applyTheme(themes[currentThemeIndex]);
         });
 
         // Interactive Skills & Projects Filtering
