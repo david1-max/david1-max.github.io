@@ -1389,10 +1389,10 @@
                     <img id="github-repo1-card" src="" alt="Repo 1 Stats" style="max-width: 100%; height: auto; transition: opacity 0.3s;" />
                     <img id="github-repo2-card" src="" alt="Repo 2 Stats" style="max-width: 100%; height: auto; transition: opacity 0.3s;" />
                 </div>
-                <!-- Card 2: General Stats -->
+                <!-- Card 2: Most Languages Used -->
                 <div class="glass-card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 24px; min-height: 220px; overflow: hidden; gap: 20px;">
-                    <h4 class="skill-category-title" style="font-size: 14px; margin-bottom: 0; width: 100%; text-align: left;"><i class="fa-solid fa-chart-simple"></i> Profile Metrics</h4>
-                    <img id="github-stats-card" src="" alt="GitHub Stats" style="max-width: 100%; height: auto; transition: opacity 0.3s;" />
+                    <h4 class="skill-category-title" style="font-size: 14px; margin-bottom: 0; width: 100%; text-align: left;"><i class="fa-solid fa-language"></i> Most Languages Used</h4>
+                    <img id="github-langs-card" src="" alt="Top Languages" style="max-width: 100%; height: auto; transition: opacity 0.3s;" />
                 </div>
             </div>
 
@@ -1730,12 +1730,12 @@
 
         // Helper to update GitHub Stats image sources matching the theme colors
         function updateGithubStatsImages() {
-            const statsImg = document.getElementById("github-stats-card");
+            const langsImg = document.getElementById("github-langs-card");
             const repo1Img = document.getElementById("github-repo1-card");
             const repo2Img = document.getElementById("github-repo2-card");
             const chartImg = document.getElementById("github-chart-card");
             
-            if (!statsImg || !repo1Img || !repo2Img || !chartImg) return;
+            if (!langsImg || !repo1Img || !repo2Img || !chartImg) return;
 
             const theme = document.documentElement.getAttribute("data-theme") || "dark";
 
@@ -1761,8 +1761,8 @@
                 chartHexColor = "10b981";
             }
 
-            // Update general profile stats card
-            statsImg.src = `https://github-stats-extended.vercel.app/api?username=david1-max&show_icons=true&bg_color=00000000&title_color=${titleColor}&text_color=${textColor}&icon_color=${iconColor}&border_color=00000000&hide_border=true&count_private=true&include_all_commits=true`;
+            // Update top languages card
+            langsImg.src = `https://github-stats-extended.vercel.app/api/top-langs/?username=david1-max&layout=compact&bg_color=00000000&title_color=${titleColor}&text_color=${textColor}&icon_color=${iconColor}&border_color=00000000&hide_border=true&count_private=true`;
             
             // Update repository stats cards
             repo1Img.src = `https://github-stats-extended.vercel.app/api/pin/?username=david1-max&repo=vibe-chat&bg_color=00000000&title_color=${titleColor}&text_color=${textColor}&icon_color=${iconColor}&border_color=00000000&hide_border=true`;
