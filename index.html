@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="emerald">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -380,36 +380,138 @@
 
         .avatar-glow {
             position: absolute;
-            width: 280px;
-            height: 280px;
+            width: 300px; height: 300px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            filter: blur(40px);
-            opacity: 0.5;
-            animation: pulse-glow 8s infinite alternate;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+            filter: blur(30px);
+            opacity: 0.7;
+            animation: pulse-glow 6s infinite alternate;
         }
 
         .avatar-img {
             position: relative;
-            width: 260px;
-            height: 260px;
+            width: 220px; height: 220px;
             border-radius: 50%;
-            border: 4px solid var(--border-card);
-            background-color: var(--bg-card);
+            border: 3px solid rgba(16,185,129,0.4);
+            background: linear-gradient(135deg, var(--bg-card), rgba(16,185,129,0.08));
             z-index: 2;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 0 0 1px rgba(16,185,129,0.1), 0 20px 60px rgba(0,0,0,0.3), inset 0 0 40px rgba(16,185,129,0.05);
             transition: var(--transition);
         }
 
         .avatar-img i {
-            font-size: 110px;
+            font-size: 90px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 12px var(--primary-glow));
         }
+
+        /* Orbit rings around avatar */
+        .orbit-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(16,185,129,0.2);
+            animation: orbit-spin linear infinite;
+        }
+
+        .orbit-ring-1 { width: 290px; height: 290px; animation-duration: 12s; }
+        .orbit-ring-2 { width: 360px; height: 360px; animation-duration: 20s; animation-direction: reverse; border-style: dashed; }
+        .orbit-ring-3 { width: 430px; height: 430px; animation-duration: 30s; border-color: rgba(52,211,153,0.1); }
+
+        @keyframes orbit-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Floating tech badges on orbit rings */
+        .orbit-badge {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px;
+            color: var(--primary);
+            box-shadow: 0 0 12px var(--primary-glow);
+            backdrop-filter: blur(8px);
+        }
+
+        /* Badge positions on orbit-ring-1 */
+        .orbit-ring-1 .orbit-badge:nth-child(1) { transform: translate(-50%,-50%) rotate(0deg) translateX(145px) rotate(0deg); }
+        .orbit-ring-1 .orbit-badge:nth-child(2) { transform: translate(-50%,-50%) rotate(180deg) translateX(145px) rotate(-180deg); }
+
+        /* Badge positions on orbit-ring-2 */
+        .orbit-ring-2 .orbit-badge:nth-child(1) { transform: translate(-50%,-50%) rotate(90deg) translateX(180px) rotate(-90deg); }
+        .orbit-ring-2 .orbit-badge:nth-child(2) { transform: translate(-50%,-50%) rotate(270deg) translateX(180px) rotate(-270deg); }
+
+        /* Stat counters below hero */
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .hero-stat-number {
+            font-family: var(--font-display);
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            text-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        .hero-stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Social strip */
+        .hero-social-strip {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+            align-items: center;
+        }
+
+        .social-chip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: var(--transition);
+            backdrop-filter: blur(8px);
+        }
+
+        .social-chip:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 16px var(--primary-glow);
+            transform: translateY(-2px);
+        }
+
+        .social-chip i { font-size: 15px; }
 
         /* Section Layouts */
         section {
@@ -979,52 +1081,89 @@
         /* Futuristic Boot Preloader */
         #boot-loader {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
             z-index: 999999;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
             pointer-events: auto;
+            background-color: #060e09;
+        }
+
+        /* Animated grid background inside preloader */
+        #boot-loader::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(16,185,129,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16,185,129,0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: grid-move 4s linear infinite;
+            z-index: 0;
+        }
+
+        /* CRT Scanline overlay */
+        #boot-loader::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0,0,0,0.15) 2px,
+                rgba(0,0,0,0.15) 4px
+            );
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        @keyframes grid-move {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 40px; }
         }
 
         .loader-panel {
             position: absolute;
             width: 100%;
-            background-color: #030509;
-            transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1);
+            height: 50%;
+            background-color: #060e09;
+            transition: transform 1.4s cubic-bezier(0.85, 0, 0.15, 1);
             z-index: 1;
-            border-color: var(--primary-glow);
-            border-style: solid;
         }
 
-        #loader-panel-top {
-            top: 0;
-            transform: translateY(0);
-            border-width: 0 0 2px 0;
-        }
+        #loader-panel-top { top: 0; }
+        #loader-panel-bottom { bottom: 0; }
 
-        #loader-panel-bottom {
-            bottom: 0;
-            transform: translateY(0);
-            border-width: 2px 0 0 0;
-        }
-
-        #boot-loader.loaded #loader-panel-top {
-            transform: translateY(-100%);
-        }
-
-        #boot-loader.loaded #loader-panel-bottom {
-            transform: translateY(100%);
-        }
+        #boot-loader.loaded #loader-panel-top { transform: translateY(-100%); }
+        #boot-loader.loaded #loader-panel-bottom { transform: translateY(100%); }
 
         #boot-loader.loaded {
             pointer-events: none;
             visibility: hidden;
-            transition: visibility 0s 1.2s;
+            transition: visibility 0s 1.4s;
+        }
+
+        /* Glitch title in preloader */
+        .loader-brand {
+            font-family: var(--font-display);
+            font-size: clamp(22px, 4vw, 36px);
+            font-weight: 800;
+            letter-spacing: 6px;
+            color: var(--primary);
+            text-transform: uppercase;
+            position: relative;
+            text-shadow: 0 0 20px var(--primary), 0 0 40px var(--primary-glow);
+            animation: glitch-flicker 3s infinite;
+        }
+
+        @keyframes glitch-flicker {
+            0%, 94%, 100% { opacity: 1; text-shadow: 0 0 20px var(--primary), 0 0 40px var(--primary-glow); }
+            95% { opacity: 0.8; text-shadow: -2px 0 #ff00cc, 2px 0 var(--primary); transform: skewX(-2deg); }
+            97% { opacity: 1; text-shadow: 2px 0 #ff00cc, -2px 0 var(--primary); transform: skewX(1deg); }
         }
 
         .loader-content {
@@ -1036,24 +1175,48 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 24px;
+            gap: 20px;
             text-shadow: 0 0 10px var(--primary-glow);
             transition: opacity 0.5s ease;
             max-width: 90%;
         }
 
-        #boot-loader.loaded .loader-content {
-            opacity: 0;
+        #boot-loader.loaded .loader-content { opacity: 0; }
+
+        /* Status badge row */
+        .loader-status-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .loader-badge {
+            font-size: 9px;
+            letter-spacing: 1.5px;
+            padding: 4px 10px;
+            border: 1px solid var(--primary-glow);
+            border-radius: 4px;
+            color: var(--primary);
+            background: rgba(16,185,129,0.07);
+            animation: badge-pulse 2s ease-in-out infinite;
+        }
+
+        .loader-badge:nth-child(2) { animation-delay: 0.4s; }
+        .loader-badge:nth-child(3) { animation-delay: 0.8s; }
+
+        @keyframes badge-pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; box-shadow: 0 0 8px var(--primary-glow); }
         }
 
         /* Rotating HUD Circle */
         .hud-circle {
             position: relative;
-            width: 120px;
-            height: 120px;
-            border: 4px solid var(--border-card);
-            border-top: 4px solid var(--primary);
-            border-bottom: 4px solid var(--secondary);
+            width: 100px; height: 100px;
+            border: 3px solid rgba(16,185,129,0.15);
+            border-top: 3px solid var(--primary);
+            border-bottom: 3px solid var(--secondary);
             border-radius: 50%;
             animation: spin-hud 2s linear infinite;
         }
@@ -1062,53 +1225,66 @@
             content: '';
             position: absolute;
             top: 10px; left: 10px; right: 10px; bottom: 10px;
-            border: 2px solid var(--border-card);
+            border: 2px solid rgba(16,185,129,0.1);
             border-left: 2px solid var(--secondary);
             border-right: 2px solid var(--primary);
             border-radius: 50%;
             animation: spin-hud-reverse 1.5s linear infinite;
         }
 
-        @keyframes spin-hud {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        /* Inner dot */
+        .hud-circle::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px; height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--primary);
         }
 
-        @keyframes spin-hud-reverse {
-            0% { transform: rotate(360deg); }
-            100% { transform: rotate(0deg); }
-        }
+        @keyframes spin-hud { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes spin-hud-reverse { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
 
         .loader-terminal {
-            width: 320px;
-            height: 140px;
+            width: min(360px, 90vw);
+            height: 130px;
             text-align: left;
-            padding: 16px;
-            background: rgba(8, 14, 24, 0.7);
-            border: 1px solid var(--primary-glow);
+            padding: 14px 16px;
+            background: rgba(6, 16, 12, 0.85);
+            border: 1px solid rgba(16,185,129,0.25);
             border-radius: 8px;
-            font-size: 11px;
-            line-height: 1.5;
+            font-size: 10.5px;
+            line-height: 1.6;
             color: var(--primary);
             overflow-y: hidden;
-            box-shadow: 0 0 20px var(--primary-glow) inset;
+            box-shadow: 0 0 25px rgba(16,185,129,0.1) inset, 0 0 25px rgba(16,185,129,0.05);
         }
 
         .progress-bar-container {
-            width: 320px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.05);
+            width: min(360px, 90vw);
+            height: 5px;
+            background: rgba(255,255,255,0.04);
             border-radius: 3px;
             overflow: hidden;
-            border: 1px solid var(--primary-glow);
+            border: 1px solid rgba(16,185,129,0.15);
         }
 
         .progress-bar-fill {
             width: 0%;
             height: 100%;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
-            box-shadow: 0 0 10px var(--primary);
+            box-shadow: 0 0 12px var(--primary);
             transition: width 0.1s linear;
+        }
+
+        .loader-pct {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--primary);
+            opacity: 0.8;
         }
 
         /* Responsive adjustments */
@@ -1170,6 +1346,12 @@
         <div class="loader-panel" id="loader-panel-top"></div>
         <div class="loader-panel" id="loader-panel-bottom"></div>
         <div class="loader-content">
+            <div class="loader-brand">DIVYANSHU.DEV</div>
+            <div class="loader-status-row">
+                <span class="loader-badge">SYS_INIT</span>
+                <span class="loader-badge">ML_CORE ✓</span>
+                <span class="loader-badge">WEB_STACK ✓</span>
+            </div>
             <div class="hud-circle"></div>
             <div class="loader-terminal" id="loader-terminal">
                 &gt; INITIALIZING CORE SYSTEM...
@@ -1177,7 +1359,7 @@
             <div class="progress-bar-container">
                 <div class="progress-bar-fill" id="loader-progress-fill"></div>
             </div>
-            <div style="font-size: 14px; font-weight: 700; letter-spacing: 2px;" id="loader-percentage">0%</div>
+            <div class="loader-pct" id="loader-percentage">0%</div>
         </div>
     </div>
 
@@ -1223,16 +1405,47 @@
             <div>
                 <span class="hero-subtitle">Welcome to my space</span>
                 <h1 class="hero-title">Hey, I'm <span>Divyanshu Yadav</span><br>a <span class="typing" id="typing-text"></span></h1>
-                <p class="hero-description">Computer Science & Artificial Intelligence honors student at JK Lakshmipat University. Experienced TA in Python/C and developer of full-stack portals and ML frameworks.</p>
+                <p class="hero-description">Computer Science &amp; Artificial Intelligence honors student at JK Lakshmipat University. Experienced TA in Python/C and developer of full-stack portals and ML frameworks.</p>
                 <div class="hero-buttons">
                     <a href="#contact" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Get In Touch</a>
                     <button onclick="openResumeModal()" class="btn btn-secondary" style="border: 1px solid var(--border-card);"><i class="fa-solid fa-file-pdf"></i> View Resume</button>
                 </div>
+                <!-- Stat Counters -->
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="hero-stat-number" id="stat-projects">0+</span>
+                        <span class="hero-stat-label">Projects Built</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-number" id="stat-students">0+</span>
+                        <span class="hero-stat-label">Students Mentored</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-number" id="stat-tech">0+</span>
+                        <span class="hero-stat-label">Technologies</span>
+                    </div>
+                </div>
+                <!-- Social Strip -->
+                <div class="hero-social-strip">
+                    <a href="https://github.com/david1-max" target="_blank" class="social-chip"><i class="fa-brands fa-github"></i> GitHub</a>
+                    <a href="https://linkedin.com/in/divyanshu-yadav" target="_blank" class="social-chip"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+                    <a href="mailto:yadavdavid382@gmail.com" class="social-chip"><i class="fa-solid fa-envelope"></i> Email</a>
+                </div>
             </div>
             <div class="hero-graphic">
                 <div class="avatar-glow"></div>
+                <!-- Orbit Ring 1 -->
+                <div class="orbit-ring orbit-ring-1">
+                    <div class="orbit-badge"><i class="fa-brands fa-python"></i></div>
+                    <div class="orbit-badge"><i class="fa-brands fa-js"></i></div>
+                </div>
+                <!-- Orbit Ring 2 -->
+                <div class="orbit-ring orbit-ring-2">
+                    <div class="orbit-badge"><i class="fa-solid fa-brain"></i></div>
+                    <div class="orbit-badge"><i class="fa-brands fa-react"></i></div>
+                </div>
                 <div class="avatar-img">
-                    <i class="fa-solid fa-user-gear"></i>
+                    <i class="fa-solid fa-code"></i>
                 </div>
             </div>
         </div>
@@ -1823,15 +2036,12 @@
             localStorage.setItem("theme", themeName);
 
             // Update icon class
-            themeIcon.className = "fa-solid " + themeIcons[themeName];
+            if (themeIcon) themeIcon.className = "fa-solid " + themeIcons[themeName];
 
             // Re-render components dependent on theme
             if (typeof initParticles === "function") initParticles();
             if (typeof updateGithubStatsImages === "function") updateGithubStatsImages();
         }
-
-        // Apply theme immediately
-        applyTheme(themes[currentThemeIndex]);
 
         themeToggle.addEventListener("click", () => {
             currentThemeIndex = (currentThemeIndex + 1) % themes.length;
@@ -1839,84 +2049,80 @@
         });
 
         // Interactive Skills & Projects Filtering
-        document.addEventListener("DOMContentLoaded", () => {
-            updateGithubStatsImages(); // Load github cards on entry
-            
-            // Skills filtering logic
-            const skillsFilterContainer = document.getElementById("skills-filter-container");
-            if (skillsFilterContainer) {
-                skillsFilterContainer.addEventListener("click", (e) => {
-                    const btn = e.target.closest(".filter-btn");
-                    if (!btn) return;
+        // (script is at end of body, DOM is ready — run directly)
+        const skillsFilterContainer = document.getElementById("skills-filter-container");
+        if (skillsFilterContainer) {
+            skillsFilterContainer.addEventListener("click", (e) => {
+                const btn = e.target.closest(".filter-btn");
+                if (!btn) return;
 
-                    const buttons = skillsFilterContainer.querySelectorAll(".filter-btn");
-                    buttons.forEach(b => b.classList.remove("active"));
-                    btn.classList.add("active");
+                const buttons = skillsFilterContainer.querySelectorAll(".filter-btn");
+                buttons.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
 
-                    const category = btn.getAttribute("data-skill-filter");
-                    const tags = document.querySelectorAll(".skill-tag");
+                const category = btn.getAttribute("data-skill-filter");
+                const tags = document.querySelectorAll(".skill-tag");
 
-                    tags.forEach(tag => {
-                        const tagCat = tag.getAttribute("data-cat");
-                        if (category === "all" || tagCat === category) {
-                            tag.classList.remove("filtered");
-                            tag.style.opacity = "1";
-                            tag.style.transform = "scale(1)";
-                        } else {
-                            tag.classList.add("filtered");
-                        }
-                    });
-
-                    // Hide/Show skills subcategory divs if they have no visible tags
-                    const subgrids = document.querySelectorAll(".skills-grid > div");
-                    subgrids.forEach(grid => {
-                        const visibleTags = grid.querySelectorAll(".skill-tag:not(.filtered)");
-                        if (visibleTags.length === 0) {
-                            grid.style.display = "none";
-                        } else {
-                            grid.style.display = "block";
-                        }
-                    });
+                tags.forEach(tag => {
+                    const tagCat = tag.getAttribute("data-cat");
+                    if (category === "all" || tagCat === category) {
+                        tag.classList.remove("filtered");
+                        tag.style.opacity = "1";
+                        tag.style.transform = "scale(1)";
+                    } else {
+                        tag.classList.add("filtered");
+                    }
                 });
-            }
 
-            // Projects filtering logic
-            const projectsFilterContainer = document.getElementById("projects-filter-container");
-            if (projectsFilterContainer) {
-                projectsFilterContainer.addEventListener("click", (e) => {
-                    const btn = e.target.closest(".filter-btn");
-                    if (!btn) return;
-
-                    const buttons = projectsFilterContainer.querySelectorAll(".filter-btn");
-                    buttons.forEach(b => b.classList.remove("active"));
-                    btn.classList.add("active");
-
-                    const category = btn.getAttribute("data-proj-filter");
-                    const cards = document.querySelectorAll(".project-card");
-
-                    cards.forEach(card => {
-                        const cardCat = card.getAttribute("data-proj-cat");
-                        if (category === "all" || cardCat === category) {
-                            card.style.display = "flex";
-                            card.style.transform = "perspective(1000px) scale(0.95)";
-                            card.style.opacity = "0";
-                            setTimeout(() => {
-                                card.style.opacity = "1";
-                                card.style.transform = "perspective(1000px) scale(1)";
-                            }, 50);
-                        } else {
-                            card.style.opacity = "0";
-                            card.style.transform = "perspective(1000px) scale(0.95)";
-                            setTimeout(() => {
-                                if (card.style.opacity === "0") {
-                                    card.style.display = "none";
-                                }
-                            }, 300);
-                        }
-                    });
+                // Hide/Show skills subcategory divs if they have no visible tags
+                const subgrids = document.querySelectorAll(".skills-grid > div");
+                subgrids.forEach(grid => {
+                    const visibleTags = grid.querySelectorAll(".skill-tag:not(.filtered)");
+                    if (visibleTags.length === 0) {
+                        grid.style.display = "none";
+                    } else {
+                        grid.style.display = "block";
+                    }
                 });
-            }
-        });
+            });
+        }
+
+        // Projects filtering logic
+        const projectsFilterContainer = document.getElementById("projects-filter-container");
+        if (projectsFilterContainer) {
+            projectsFilterContainer.addEventListener("click", (e) => {
+                const btn = e.target.closest(".filter-btn");
+                if (!btn) return;
+
+                const buttons = projectsFilterContainer.querySelectorAll(".filter-btn");
+                buttons.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+
+                const category = btn.getAttribute("data-proj-filter");
+                const cards = document.querySelectorAll(".project-card");
+
+                cards.forEach(card => {
+                    const cardCat = card.getAttribute("data-proj-cat");
+                    if (category === "all" || cardCat === category) {
+                        card.style.display = "flex";
+                        card.style.transform = "perspective(1000px) scale(0.95)";
+                        card.style.opacity = "0";
+                        setTimeout(() => {
+                            card.style.opacity = "1";
+                            card.style.transform = "perspective(1000px) scale(1)";
+                        }, 50);
+                    } else {
+                        card.style.opacity = "0";
+                        card.style.transform = "perspective(1000px) scale(0.95)";
+                        setTimeout(() => {
+                            if (card.style.opacity === "0") {
+                                card.style.display = "none";
+                            }
+                        }, 300);
+                    }
+                });
+            });
+        }
 
         // Active link highlighting on scroll
         const sections = document.querySelectorAll("section");
@@ -2224,6 +2430,205 @@
 
             addLogLine();
 
+            // === GLASS SHATTER TRANSITION ===
+            function shatterGlass(onDone) {
+                const W = window.innerWidth;
+                const H = window.innerHeight;
+
+                // Create fullscreen canvas on top of everything
+                const sc = document.createElement('canvas');
+                sc.id = 'shatter-canvas';
+                sc.width  = W;
+                sc.height = H;
+                sc.style.cssText = `
+                    position:fixed;top:0;left:0;
+                    width:100vw;height:100vh;
+                    z-index:1000000;pointer-events:none;
+                `;
+                document.body.appendChild(sc);
+                const ctx = sc.getContext('2d');
+
+                // ── Step 1: Generate a Delaunay-ish triangle mesh ──────────
+                const COLS = 12, ROWS = 9;
+                const cw = W / COLS, ch = H / ROWS;
+
+                // Random impact point (slightly off-center for drama)
+                const ix = W * (0.4 + Math.random() * 0.2);
+                const iy = H * (0.35 + Math.random() * 0.2);
+
+                const pts = [];
+                for (let y = 0; y <= ROWS; y++) {
+                    for (let x = 0; x <= COLS; x++) {
+                        const jx = (x > 0 && x < COLS) ? (Math.random() - 0.5) * cw * 0.75 : 0;
+                        const jy = (y > 0 && y < ROWS) ? (Math.random() - 0.5) * ch * 0.75 : 0;
+                        pts.push([x * cw + jx, y * ch + jy]);
+                    }
+                }
+
+                const tris = [];
+                for (let y = 0; y < ROWS; y++) {
+                    for (let x = 0; x < COLS; x++) {
+                        const tl = y * (COLS + 1) + x;
+                        const tr = tl + 1;
+                        const bl = tl + (COLS + 1);
+                        const br = bl + 1;
+                        tris.push([pts[tl], pts[tr], pts[bl]]);
+                        tris.push([pts[tr], pts[br], pts[bl]]);
+                    }
+                }
+
+                // ── Step 2: Build shard objects ────────────────────────────
+                const shards = tris.map(tri => {
+                    const cx = (tri[0][0] + tri[1][0] + tri[2][0]) / 3;
+                    const cy = (tri[0][1] + tri[1][1] + tri[2][1]) / 3;
+                    const dx = cx - ix, dy = cy - iy;
+                    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+                    // Slower, more dramatic shard velocity
+                    const speed = 1.5 + (1 - Math.min(dist / (W * 0.7), 1)) * 7 + Math.random() * 2.5;
+                    return {
+                        pts: tri, cx, cy,
+                        vx: (dx / dist) * speed,
+                        vy: (dy / dist) * speed - Math.random() * 1.5,
+                        vr: (Math.random() - 0.5) * 0.06,   // slower rotation
+                        gravity: 0.08 + Math.random() * 0.07, // lighter gravity
+                        ox: 0, oy: 0,
+                        rotation: 0,
+                        opacity: 1
+                    };
+                });
+
+                // ── Phase A: Draw initial solid screen + crack lines ───────
+                let phase = 'crack';
+                let crackFrame = 0;
+                const CRACK_FRAMES = 55;   // ~0.9s at 60fps — slow crack spread
+                let pauseFrames = 0;
+                const PAUSE_FRAMES = 18;   // ~0.3s pause: cracks fully visible before shatter
+
+                // Pre-compute stable crack visibility per shard (no per-frame flicker)
+                const maxDist = Math.sqrt(W * W + H * H) * 0.75;
+                const shardDists = shards.map(s =>
+                    Math.sqrt((s.cx - ix) ** 2 + (s.cy - iy) ** 2)
+                );
+
+                function drawFrame() {
+                    ctx.clearRect(0, 0, W, H);
+
+                    if (phase === 'crack') {
+                        ctx.fillStyle = '#060e09';
+                        ctx.fillRect(0, 0, W, H);
+
+                        const progress = crackFrame / CRACK_FRAMES;
+                        const threshold = progress * maxDist;
+
+                        shards.forEach((s, i) => {
+                            ctx.beginPath();
+                            ctx.moveTo(s.pts[0][0], s.pts[0][1]);
+                            ctx.lineTo(s.pts[1][0], s.pts[1][1]);
+                            ctx.lineTo(s.pts[2][0], s.pts[2][1]);
+                            ctx.closePath();
+                            ctx.fillStyle = '#060e09';
+                            ctx.fill();
+                            if (shardDists[i] < threshold) {
+                                // Stable crack color — no random flicker
+                                ctx.strokeStyle = 'rgba(52,211,153,0.75)';
+                                ctx.lineWidth = 0.8;
+                                ctx.stroke();
+                            }
+                        });
+
+                        // Radial impact flash — grows then fades
+                        const flashR = crackFrame * 8;
+                        const flashAlpha = Math.max(0, 0.7 - crackFrame * 0.015);
+                        if (flashAlpha > 0.01) {
+                            const grad = ctx.createRadialGradient(ix, iy, 0, ix, iy, Math.max(flashR, 1));
+                            grad.addColorStop(0, `rgba(255,255,255,${flashAlpha})`);
+                            grad.addColorStop(0.35, `rgba(16,185,129,${flashAlpha * 0.5})`);
+                            grad.addColorStop(1, 'transparent');
+                            ctx.fillStyle = grad;
+                            ctx.beginPath();
+                            ctx.arc(ix, iy, Math.max(flashR, 1), 0, Math.PI * 2);
+                            ctx.fill();
+                        }
+
+                        crackFrame++;
+                        if (crackFrame >= CRACK_FRAMES) {
+                            phase = 'pause';
+                        }
+
+                    } else if (phase === 'pause') {
+                        // Hold the fully-cracked screen for a beat before shattering
+                        ctx.fillStyle = '#060e09';
+                        ctx.fillRect(0, 0, W, H);
+                        shards.forEach((s, i) => {
+                            ctx.beginPath();
+                            ctx.moveTo(s.pts[0][0], s.pts[0][1]);
+                            ctx.lineTo(s.pts[1][0], s.pts[1][1]);
+                            ctx.lineTo(s.pts[2][0], s.pts[2][1]);
+                            ctx.closePath();
+                            ctx.fillStyle = '#060e09';
+                            ctx.fill();
+                            ctx.strokeStyle = 'rgba(52,211,153,0.75)';
+                            ctx.lineWidth = 0.8;
+                            ctx.stroke();
+                        });
+                        pauseFrames++;
+                        if (pauseFrames >= PAUSE_FRAMES) {
+                            phase = 'shatter';
+                            const content = preloader.querySelector('.loader-content');
+                            if (content) content.style.transition = 'opacity 0.2s'; content && (content.style.opacity = '0');
+                        }
+
+                    } else {
+                        // ── Phase B: Shards fly apart ──────────────────────
+                        let stillVisible = false;
+
+                        shards.forEach(s => {
+                            if (s.opacity <= 0.01) return;
+                            stillVisible = true;
+
+                            s.ox += s.vx;
+                            s.oy += s.vy;
+                            s.vy += s.gravity;
+                            s.rotation += s.vr;
+                            s.opacity -= 0.010;  // ~100 frames to fully fade ≈ 1.7s
+
+                            ctx.save();
+                            // Translate to shard centroid, offset, rotate, then draw
+                            ctx.translate(s.cx + s.ox, s.cy + s.oy);
+                            ctx.rotate(s.rotation);
+                            ctx.translate(-s.cx, -s.cy);
+                            ctx.globalAlpha = Math.max(0, s.opacity);
+
+                            ctx.beginPath();
+                            ctx.moveTo(s.pts[0][0], s.pts[0][1]);
+                            ctx.lineTo(s.pts[1][0], s.pts[1][1]);
+                            ctx.lineTo(s.pts[2][0], s.pts[2][1]);
+                            ctx.closePath();
+
+                            // Each shard has a slight green tint glass look
+                            ctx.fillStyle = `rgba(6,14,9,${0.95})`;
+                            ctx.fill();
+                            ctx.strokeStyle = `rgba(52,211,153,${s.opacity * 0.9})`;
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+                            ctx.restore();
+                        });
+
+                        if (!stillVisible) {
+                            sc.remove();
+                            preloader.style.display = 'none';
+                            if (typeof onDone === 'function') onDone();
+                            return; // stop rAF
+                        }
+                    }
+
+                    requestAnimationFrame(drawFrame);
+                }
+
+                requestAnimationFrame(drawFrame);
+            }
+            // ── END GLASS SHATTER ──────────────────────────────────────────
+
             // Percentage Ticker
             const progressInterval = setInterval(() => {
                 currentProgress += Math.floor(Math.random() * 8) + 2;
@@ -2234,12 +2639,13 @@
                     playAccessGrantedBeep();
 
                     setTimeout(() => {
-                        preloader.classList.add("loaded");
-
-                        setTimeout(type, 500);
-                        resizeCanvas();
-                        animate();
-                    }, 800);
+                        // 🔥 GLASS SHATTER instead of panel slide
+                        shatterGlass(() => {
+                            setTimeout(type, 100);
+                            resizeCanvas();
+                            animate();
+                        });
+                    }, 600);
                 }
 
                 fill.style.width = currentProgress + "%";
@@ -2247,10 +2653,35 @@
             }, 80);
         }
 
-        // Start preloader on DOM load
-        window.addEventListener("DOMContentLoaded", () => {
-            runBootLoader();
-        });
+
+        // Script is at end of body — DOM is fully ready, call directly
+        applyTheme(themes[currentThemeIndex]);
+        updateGithubStatsImages();
+        runBootLoader();
+
+        // Animated stat counters — fire after boot preloader finishes
+        function animateCounter(el, target, suffix, duration) {
+            let start = 0;
+            const step = target / (duration / 16);
+            const timer = setInterval(() => {
+                start += step;
+                if (start >= target) {
+                    start = target;
+                    clearInterval(timer);
+                }
+                el.textContent = Math.floor(start) + suffix;
+            }, 16);
+        }
+
+        // Trigger counters ~2.5s after page load (after boot anim ends)
+        setTimeout(() => {
+            const statProjects = document.getElementById("stat-projects");
+            const statStudents = document.getElementById("stat-students");
+            const statTech     = document.getElementById("stat-tech");
+            if (statProjects) animateCounter(statProjects, 10, "+", 1200);
+            if (statStudents) animateCounter(statStudents, 60, "+", 1400);
+            if (statTech)     animateCounter(statTech,     15, "+", 1000);
+        }, 2500);
     </script>
 </body>
 </html>
