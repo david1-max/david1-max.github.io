@@ -1383,11 +1383,24 @@
 
             <!-- GitHub Stats Section -->
             <div style="margin-top: 48px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
-                <div class="glass-card" style="display: flex; justify-content: center; align-items: center; padding: 24px; min-height: 220px; overflow: hidden;">
+                <!-- Card 1: Pinned Repos -->
+                <div class="glass-card" style="display: flex; flex-direction: column; gap: 20px; justify-content: center; align-items: center; padding: 24px; min-height: 220px; overflow: hidden;">
+                    <h4 class="skill-category-title" style="font-size: 14px; margin-bottom: 0; width: 100%; text-align: left;"><i class="fa-solid fa-code-fork"></i> Pinned Projects</h4>
+                    <img id="github-repo1-card" src="" alt="Repo 1 Stats" style="max-width: 100%; height: auto; transition: opacity 0.3s;" />
+                    <img id="github-repo2-card" src="" alt="Repo 2 Stats" style="max-width: 100%; height: auto; transition: opacity 0.3s;" />
+                </div>
+                <!-- Card 2: General Stats -->
+                <div class="glass-card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 24px; min-height: 220px; overflow: hidden; gap: 20px;">
+                    <h4 class="skill-category-title" style="font-size: 14px; margin-bottom: 0; width: 100%; text-align: left;"><i class="fa-solid fa-chart-simple"></i> Profile Metrics</h4>
                     <img id="github-stats-card" src="" alt="GitHub Stats" style="max-width: 100%; height: auto; transition: opacity 0.3s;" />
                 </div>
-                <div class="glass-card" style="display: flex; justify-content: center; align-items: center; padding: 24px; min-height: 220px; overflow: hidden;">
-                    <img id="github-langs-card" src="" alt="Top Languages" style="max-width: 100%; height: auto; transition: opacity 0.3s;" />
+            </div>
+
+            <!-- Card 3: Contribution Calendar (Full Width) -->
+            <div class="glass-card" style="margin-top: 30px; display: flex; flex-direction: column; align-items: center; padding: 24px; overflow-x: auto;">
+                <h4 class="skill-category-title" style="font-size: 14px; margin-bottom: 16px; width: 100%; text-align: left;"><i class="fa-solid fa-calendar-days"></i> Contribution Heatmap</h4>
+                <div style="width: 100%; min-width: 700px; display: flex; justify-content: center;">
+                    <img id="github-chart-card" src="" alt="Contribution Graph" style="width: 100%; max-width: 850px; height: auto;" />
                 </div>
             </div>
         </div>
@@ -1718,32 +1731,45 @@
         // Helper to update GitHub Stats image sources matching the theme colors
         function updateGithubStatsImages() {
             const statsImg = document.getElementById("github-stats-card");
-            const langsImg = document.getElementById("github-langs-card");
-            if (!statsImg || !langsImg) return;
+            const repo1Img = document.getElementById("github-repo1-card");
+            const repo2Img = document.getElementById("github-repo2-card");
+            const chartImg = document.getElementById("github-chart-card");
+            
+            if (!statsImg || !repo1Img || !repo2Img || !chartImg) return;
 
             const theme = document.documentElement.getAttribute("data-theme") || "dark";
 
             let titleColor = "00ffcc";
             let textColor = "e2e8f0";
             let iconColor = "a855f7";
+            let chartHexColor = "00ffcc"; // primary color for graph
 
             if (theme === "light") {
                 titleColor = "9f1239";
                 textColor = "0f172a";
                 iconColor = "6d28d9";
+                chartHexColor = "9f1239";
             } else if (theme === "cyberpunk") {
                 titleColor = "ff007f";
                 textColor = "e2e8f0";
                 iconColor = "00f0ff";
+                chartHexColor = "ff007f";
             } else if (theme === "emerald") {
                 titleColor = "10b981";
                 textColor = "ecfdf5";
                 iconColor = "34d399";
+                chartHexColor = "10b981";
             }
 
-            // Set SVG source urls with transparency using a high-availability mirror and including all commits
+            // Update general profile stats card
             statsImg.src = `https://github-stats-extended.vercel.app/api?username=david1-max&show_icons=true&bg_color=00000000&title_color=${titleColor}&text_color=${textColor}&icon_color=${iconColor}&border_color=00000000&hide_border=true&count_private=true&include_all_commits=true`;
-            langsImg.src = `https://github-stats-extended.vercel.app/api/top-langs/?username=david1-max&layout=compact&bg_color=00000000&title_color=${titleColor}&text_color=${textColor}&icon_color=${iconColor}&border_color=00000000&hide_border=true&count_private=true`;
+            
+            // Update repository stats cards
+            repo1Img.src = `https://github-stats-extended.vercel.app/api/pin/?username=david1-max&repo=vibe-chat&bg_color=00000000&title_color=${titleColor}&text_color=${textColor}&icon_color=${iconColor}&border_color=00000000&hide_border=true`;
+            repo2Img.src = `https://github-stats-extended.vercel.app/api/pin/?username=david1-max&repo=BubbleID-Reproduction&bg_color=00000000&title_color=${titleColor}&text_color=${textColor}&icon_color=${iconColor}&border_color=00000000&hide_border=true`;
+            
+            // Update contribution graph
+            chartImg.src = `https://ghchart.rshah.org/${chartHexColor}/david1-max`;
         }
 
         // Multi-Theme System Logic
