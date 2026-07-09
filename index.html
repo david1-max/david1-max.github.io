@@ -1287,6 +1287,56 @@
             opacity: 0.8;
         }
 
+        /* =============================================
+           SCROLL REVEAL ANIMATION SYSTEM
+           ============================================= */
+
+        /* Base hidden state — all reveal elements start invisible */
+        .reveal {
+            opacity: 0;
+            transition:
+                opacity 0.75s cubic-bezier(0.25, 0.8, 0.25, 1),
+                transform 0.75s cubic-bezier(0.25, 0.8, 0.25, 1);
+            will-change: opacity, transform;
+        }
+
+        /* Direction variants */
+        .reveal-up     { transform: translateY(50px); }
+        .reveal-left   { transform: translateX(-50px); }
+        .reveal-right  { transform: translateX(50px); }
+        .reveal-scale  { transform: scale(0.88) translateY(24px); }
+        .reveal-fade   { transform: none; }
+
+        /* Triggered state — transition to natural position */
+        .reveal.visible {
+            opacity: 1;
+            transform: none !important;
+        }
+
+        /* Stagger delays for children inside a stagger container */
+        .reveal-stagger > *:nth-child(1)  { transition-delay: 0.00s; }
+        .reveal-stagger > *:nth-child(2)  { transition-delay: 0.10s; }
+        .reveal-stagger > *:nth-child(3)  { transition-delay: 0.20s; }
+        .reveal-stagger > *:nth-child(4)  { transition-delay: 0.30s; }
+        .reveal-stagger > *:nth-child(5)  { transition-delay: 0.40s; }
+        .reveal-stagger > *:nth-child(6)  { transition-delay: 0.50s; }
+        .reveal-stagger > *:nth-child(n+7){ transition-delay: 0.60s; }
+
+        /* Avatar photo upgrade */
+        .avatar-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+            filter: saturate(1.05) contrast(1.02);
+        }
+
+        /* Disable animations for users who prefer reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+        }
+
         /* Responsive adjustments */
         @media (max-width: 992px) {
             .hero-grid {
@@ -1445,7 +1495,7 @@
                     <div class="orbit-badge"><i class="fa-brands fa-react"></i></div>
                 </div>
                 <div class="avatar-img">
-                    <i class="fa-solid fa-code"></i>
+                    <img src="profile.png" alt="Divyanshu Yadav" class="avatar-photo">
                 </div>
             </div>
         </div>
@@ -2682,6 +2732,82 @@
             if (statStudents) animateCounter(statStudents, 60, "+", 1400);
             if (statTech)     animateCounter(statTech,     15, "+", 1000);
         }, 2500);
+
+        // =============================================
+        // SCROLL REVEAL — IntersectionObserver System
+        // =============================================
+        (function initScrollReveal() {
+
+            // ── 1. Tag elements with reveal classes ───────────────────────
+            // Section title wraps → fade up
+            document.querySelectorAll('.section-title-wrap').forEach(el => {
+                el.classList.add('reveal', 'reveal-up');
+            });
+
+            // Glass cards → scale in with slight upward motion
+            document.querySelectorAll('.glass-card').forEach(el => {
+                el.classList.add('reveal', 'reveal-scale');
+            });
+
+            // Timeline items → alternating left / right slide
+            document.querySelectorAll('.timeline-item').forEach((el, i) => {
+                el.classList.add('reveal', i % 2 === 0 ? 'reveal-left' : 'reveal-right');
+            });
+
+            // Project cards → staggered fade up (handled via parent stagger)
+            const projGrid = document.querySelector('.projects-grid');
+            if (projGrid) {
+                projGrid.classList.add('reveal-stagger');
+                projGrid.querySelectorAll('.project-card').forEach(el => {
+                    el.classList.add('reveal', 'reveal-up');
+                });
+            }
+
+            // Skill tags → staggered (add stagger to each skill-list)
+            document.querySelectorAll('.skill-list').forEach(list => {
+                list.classList.add('reveal-stagger');
+                list.querySelectorAll('.skill-tag').forEach(tag => {
+                    tag.classList.add('reveal', 'reveal-up');
+                });
+            });
+
+            // Contact section items → fade up
+            document.querySelectorAll('.contact-info-item').forEach(el => {
+                el.classList.add('reveal', 'reveal-up');
+            });
+
+            // Stats cards (GitHub area) → scale in
+            document.querySelectorAll('.stats-card, .stats-grid > div').forEach(el => {
+                el.classList.add('reveal', 'reveal-scale');
+            });
+
+            // Timeline titles → fade left
+            document.querySelectorAll('.timeline-title').forEach(el => {
+                el.classList.add('reveal', 'reveal-left');
+            });
+
+            // Hero stats → already visible after boot, skip
+            // Hero social strip → already visible after boot, skip
+
+            // ── 2. Create the IntersectionObserver ────────────────────────
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        revealObserver.unobserve(entry.target); // animate only once
+                    }
+                });
+            }, {
+                threshold: 0.12,          // 12% of element must be in viewport
+                rootMargin: '0px 0px -40px 0px'  // trigger 40px before bottom edge
+            });
+
+            // ── 3. Observe all tagged elements ────────────────────────────
+            document.querySelectorAll('.reveal').forEach(el => {
+                revealObserver.observe(el);
+            });
+
+        })();
     </script>
 </body>
 </html>
