@@ -1196,6 +1196,16 @@
                     </div>
                 </div>
             </div>
+
+            <!-- GitHub Stats Section -->
+            <div style="margin-top: 48px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
+                <div class="glass-card" style="display: flex; justify-content: center; align-items: center; padding: 24px; min-height: 220px; overflow: hidden;">
+                    <img id="github-stats-card" src="" alt="GitHub Stats" style="max-width: 100%; height: auto; transition: opacity 0.3s;" />
+                </div>
+                <div class="glass-card" style="display: flex; justify-content: center; align-items: center; padding: 24px; min-height: 220px; overflow: hidden;">
+                    <img id="github-langs-card" src="" alt="Top Languages" style="max-width: 100%; height: auto; transition: opacity 0.3s;" />
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1507,6 +1517,23 @@
             scrollProgress.style.width = scrollPercentage + "%";
         });
 
+        // Helper to update GitHub Stats image sources matching the theme colors
+        function updateGithubStatsImages() {
+            const statsImg = document.getElementById("github-stats-card");
+            const langsImg = document.getElementById("github-langs-card");
+            if (!statsImg || !langsImg) return;
+
+            const isLight = document.documentElement.getAttribute("data-theme") === "light";
+
+            const titleColor = isLight ? "9f1239" : "f43f5e";
+            const textColor = isLight ? "0f172a" : "f3f4f6";
+            const iconColor = isLight ? "6d28d9" : "8b5cf6";
+
+            // Set SVG source urls with transparency
+            statsImg.src = `https://github-readme-stats.vercel.app/api?username=david1-max&show_icons=true&bg_color=00000000&title_color=${titleColor}&text_color=${textColor}&icon_color=${iconColor}&border_color=00000000&hide_border=true&count_private=true`;
+            langsImg.src = `https://github-readme-stats.vercel.app/api/top-langs/?username=david1-max&layout=compact&bg_color=00000000&title_color=${titleColor}&text_color=${textColor}&icon_color=${iconColor}&border_color=00000000&hide_border=true&count_private=true`;
+        }
+
         // Theme Toggle Logic
         const themeToggle = document.getElementById("theme-toggle");
         const themeIcon = document.getElementById("theme-icon");
@@ -1524,10 +1551,13 @@
                 themeIcon.classList.add("fa-sun");
             }
             initParticles(); // Reinitialize particles with the theme-specific colors
+            updateGithubStatsImages(); // Update cards to match the new theme colors
         });
 
         // Interactive Skills & Projects Filtering
         document.addEventListener("DOMContentLoaded", () => {
+            updateGithubStatsImages(); // Load github cards on entry
+            
             // Skills filtering logic
             const skillsFilterContainer = document.getElementById("skills-filter-container");
             if (skillsFilterContainer) {
