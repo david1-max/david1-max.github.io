@@ -15,19 +15,19 @@
     
     <style>
         :root {
-            /* Dark Theme Colors */
-            --bg-main: #060913;
-            --bg-card: rgba(13, 20, 38, 0.45);
-            --bg-nav: rgba(6, 9, 19, 0.75);
-            --border-glow: rgba(107, 29, 47, 0.4);
-            --primary: #f43f5e; /* Vibrant Rose Crimson */
-            --primary-glow: rgba(244, 63, 94, 0.25);
-            --secondary: #8b5cf6; /* Violet */
-            --secondary-glow: rgba(139, 92, 246, 0.25);
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --text-inverse: #0f172a;
-            --border-card: rgba(255, 255, 255, 0.05);
+            /* Default Theme Colors: Futuristic Sci-Fi HUD (Teal & Purple) */
+            --bg-main: #020408; /* Deep Space Black */
+            --bg-card: rgba(8, 14, 24, 0.55);
+            --bg-nav: rgba(2, 4, 8, 0.8);
+            --border-glow: rgba(0, 255, 204, 0.4);
+            --primary: #00ffcc; /* Neon Aqua/Teal */
+            --primary-glow: rgba(0, 255, 204, 0.2);
+            --secondary: #a855f7; /* Cyber Purple/Violet */
+            --secondary-glow: rgba(168, 85, 247, 0.2);
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-inverse: #020408;
+            --border-card: rgba(0, 255, 204, 0.08);
             
             --font-display: 'Outfit', sans-serif;
             --font-body: 'Inter', sans-serif;
@@ -960,6 +960,142 @@
             font-size: 18px;
         }
 
+        /* Futuristic Boot Preloader */
+        #boot-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 999999;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: auto;
+        }
+
+        .loader-panel {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            background-color: #030509;
+            transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1);
+            z-index: 1;
+            border-color: rgba(0, 255, 204, 0.15);
+            border-style: solid;
+        }
+
+        #loader-panel-top {
+            top: 0;
+            transform: translateY(0);
+            border-width: 0 0 2px 0;
+        }
+
+        #loader-panel-bottom {
+            bottom: 0;
+            transform: translateY(0);
+            border-width: 2px 0 0 0;
+        }
+
+        #boot-loader.loaded #loader-panel-top {
+            transform: translateY(-100%);
+        }
+
+        #boot-loader.loaded #loader-panel-bottom {
+            transform: translateY(100%);
+        }
+
+        #boot-loader.loaded {
+            pointer-events: none;
+            visibility: hidden;
+            transition: visibility 0s 1.2s;
+        }
+
+        .loader-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            font-family: monospace;
+            color: #00ffcc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+            transition: opacity 0.5s ease;
+            max-width: 90%;
+        }
+
+        #boot-loader.loaded .loader-content {
+            opacity: 0;
+        }
+
+        /* Rotating HUD Circle */
+        .hud-circle {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            border: 4px solid rgba(0, 255, 204, 0.1);
+            border-top: 4px solid #00ffcc;
+            border-bottom: 4px solid #a855f7;
+            border-radius: 50%;
+            animation: spin-hud 2s linear infinite;
+        }
+
+        .hud-circle::before {
+            content: '';
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 2px solid rgba(168, 85, 247, 0.15);
+            border-left: 2px solid #a855f7;
+            border-right: 2px solid #00ffcc;
+            border-radius: 50%;
+            animation: spin-hud-reverse 1.5s linear infinite;
+        }
+
+        @keyframes spin-hud {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes spin-hud-reverse {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .loader-terminal {
+            width: 320px;
+            height: 140px;
+            text-align: left;
+            padding: 16px;
+            background: rgba(8, 14, 24, 0.7);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 8px;
+            font-size: 11px;
+            line-height: 1.5;
+            color: #00ffcc;
+            overflow-y: hidden;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.1) inset;
+        }
+
+        .progress-bar-container {
+            width: 320px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 204, 0.15);
+        }
+
+        .progress-bar-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #00ffcc, #a855f7);
+            box-shadow: 0 0 10px #00ffcc;
+            transition: width 0.1s linear;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 992px) {
             .hero-grid {
@@ -1013,6 +1149,22 @@
     </style>
 </head>
 <body>
+
+    <!-- Futuristic Boot Preloader -->
+    <div id="boot-loader">
+        <div class="loader-panel" id="loader-panel-top"></div>
+        <div class="loader-panel" id="loader-panel-bottom"></div>
+        <div class="loader-content">
+            <div class="hud-circle"></div>
+            <div class="loader-terminal" id="loader-terminal">
+                &gt; INITIALIZING CORE SYSTEM...
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="loader-progress-fill"></div>
+            </div>
+            <div style="font-size: 14px; font-weight: 700; letter-spacing: 2px;" id="loader-percentage">0%</div>
+        </div>
+    </div>
 
     <!-- Scroll Progress Indicator -->
     <div id="scroll-progress"></div>
@@ -1571,9 +1723,9 @@
 
             const theme = document.documentElement.getAttribute("data-theme") || "dark";
 
-            let titleColor = "f43f5e";
-            let textColor = "f3f4f6";
-            let iconColor = "8b5cf6";
+            let titleColor = "00ffcc";
+            let textColor = "e2e8f0";
+            let iconColor = "a855f7";
 
             if (theme === "light") {
                 titleColor = "9f1239";
@@ -1905,11 +2057,148 @@
             }
         }
 
-        // Start typing and particles on window load
+        // --- FUTURISTIC BOOT PRELOADER LOGIC ---
+        function runBootLoader() {
+            const terminal = document.getElementById("loader-terminal");
+            const fill = document.getElementById("loader-progress-fill");
+            const percentageText = document.getElementById("loader-percentage");
+            const preloader = document.getElementById("boot-loader");
+
+            if (!terminal || !fill || !percentageText || !preloader) return;
+
+            const bootLogs = [
+                "INITIALIZING SYSTEM ARCHITECTURE...",
+                "ESTABLISHING CONTEXT LAYER...",
+                "LOADING CORE ASSETS...",
+                "LOADING GRAPHICS PIPELINE: ACTIVE",
+                "IMPORTING DEEP LEARNING FRAMEWORK: PyTorch",
+                "LOADING DATASET LOADER: Mask R-CNN",
+                "INTEGRATING OBJECT TRACKING: OC-SORT",
+                "LOADING WEB PROTOCOLS: Socket.io / WebRTC",
+                "ESTABLISHING SECURE CONNECTION...",
+                "MOUNTING APPRAISAL MATRIX MODULES...",
+                "ACCESS GRANTED - PORTFOLIO ONLINE."
+            ];
+
+            let logIndex = 0;
+            let currentProgress = 0;
+
+            // Web Audio API Synthesizer for Boot Sounds
+            let audioCtx = null;
+            let humOsc = null;
+            let humGain = null;
+
+            function startAudioHum() {
+                try {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+                    // Low Sci-Fi boot hum
+                    humOsc = audioCtx.createOscillator();
+                    humGain = audioCtx.createGain();
+
+                    humOsc.type = "sawtooth";
+                    humOsc.frequency.setValueAtTime(55, audioCtx.currentTime); // Low A note
+
+                    const filter = audioCtx.createBiquadFilter();
+                    filter.type = "lowpass";
+                    filter.frequency.setValueAtTime(120, audioCtx.currentTime);
+
+                    humGain.gain.setValueAtTime(0.015, audioCtx.currentTime);
+
+                    humOsc.connect(filter);
+                    filter.connect(humGain);
+                    humGain.connect(audioCtx.destination);
+
+                    humOsc.start();
+                } catch (e) {
+                    console.log("AudioContext blocked or not supported.");
+                }
+            }
+
+            function playAccessGrantedBeep() {
+                if (!audioCtx) return;
+                try {
+                    if (humGain) {
+                        humGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.5);
+                        setTimeout(() => { if (humOsc) humOsc.stop(); }, 600);
+                    }
+
+                    const osc1 = audioCtx.createOscillator();
+                    const osc2 = audioCtx.createOscillator();
+                    const chimeGain = audioCtx.createGain();
+
+                    osc1.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
+                    osc1.frequency.setValueAtTime(880, audioCtx.currentTime + 0.12); // A5
+
+                    osc2.frequency.setValueAtTime(1174.66, audioCtx.currentTime + 0.12); // D6
+
+                    chimeGain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+                    chimeGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.8);
+
+                    osc1.connect(chimeGain);
+                    osc2.connect(chimeGain);
+                    chimeGain.connect(audioCtx.destination);
+
+                    osc1.start();
+                    osc2.start();
+
+                    osc1.stop(audioCtx.currentTime + 0.9);
+                    osc2.stop(audioCtx.currentTime + 0.9);
+                } catch (e) {
+                    console.log("Error playing chime.");
+                }
+            }
+
+            // Start audio Context if suspended due to browser rules
+            document.addEventListener("click", () => {
+                if (audioCtx && audioCtx.state === "suspended") {
+                    audioCtx.resume();
+                }
+            }, { once: true });
+
+            startAudioHum();
+
+            // Text printer ticker
+            function addLogLine() {
+                if (logIndex < bootLogs.length) {
+                    const line = document.createElement("div");
+                    line.textContent = "> " + bootLogs[logIndex];
+                    terminal.appendChild(line);
+                    terminal.scrollTop = terminal.scrollHeight;
+                    logIndex++;
+
+                    setTimeout(addLogLine, Math.random() * 200 + 150);
+                }
+            }
+
+            addLogLine();
+
+            // Percentage Ticker
+            const progressInterval = setInterval(() => {
+                currentProgress += Math.floor(Math.random() * 8) + 2;
+                if (currentProgress >= 100) {
+                    currentProgress = 100;
+                    clearInterval(progressInterval);
+
+                    playAccessGrantedBeep();
+
+                    setTimeout(() => {
+                        preloader.classList.add("loaded");
+
+                        setTimeout(type, 500);
+                        resizeCanvas();
+                        animate();
+                    }, 800);
+                }
+
+                fill.style.width = currentProgress + "%";
+                percentageText.textContent = currentProgress + "%";
+            }, 80);
+        }
+
+        // Start preloader on DOM load
         window.addEventListener("DOMContentLoaded", () => {
-            setTimeout(type, 500);
-            resizeCanvas();
-            animate();
+            runBootLoader();
         });
     </script>
 </body>
