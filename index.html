@@ -1658,6 +1658,22 @@
                         <a href="#" class="project-link" onclick="openDetails('appraisalsystem'); return false;"><i class="fa-solid fa-circle-info"></i> Details</a>
                     </div>
                 </div>
+
+                <!-- LeetCode Solutions Card -->
+                <div class="glass-card project-card" data-proj-cat="ml">
+                    <div class="project-icon-wrap"><i class="fa-solid fa-brain"></i></div>
+                    <h3 class="project-name">LeetCode Solutions</h3>
+                    <p class="project-desc">Daily repository tracking data structures and algorithms practice in Python to sharpen engineering problem-solving skills.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">DSA</span>
+                        <span class="project-tag">Algorithms</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/david1-max/leetcode-solutions" class="project-link" target="_blank"><i class="fa-brands fa-github"></i> Source</a>
+                        <a href="#" class="project-link" onclick="openDetails('leetcode'); return false;"><i class="fa-solid fa-circle-info"></i> Details</a>
+                    </div>
+                </div>
             </div>
 
             <!-- GitHub Stats Section -->
@@ -1673,8 +1689,14 @@
                     </div>
                     <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 6px;">
                         <img id="github-repo2-card" src="" alt="Repo 2 Stats" style="max-width: 100%; height: auto; transition: opacity 0.3s;" />
-                        <p style="font-size: 10px; font-family: var(--font-body); color: var(--text-muted); text-align: center; margin: 0; max-width: 320px;">
+                        <p style="font-size: 10px; font-family: var(--font-body); color: var(--text-muted); text-align: center; margin: 0 0 10px 0; max-width: 320px;">
                             <strong>BubbleID-Reproduction:</strong> Deep learning algorithm utilizing PyTorch Mask R-CNN & OC-SORT for bubble tracking.
+                        </p>
+                    </div>
+                    <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                        <img id="github-repo3-card" src="" alt="Repo 3 Stats" style="max-width: 100%; height: auto; transition: opacity 0.3s;" />
+                        <p style="font-size: 10px; font-family: var(--font-body); color: var(--text-muted); text-align: center; margin: 0; max-width: 320px;">
+                            <strong>leetcode-solutions:</strong> Daily data structures and algorithms practice in Python.
                         </p>
                     </div>
                 </div>
@@ -2022,9 +2044,10 @@
             const langsImg = document.getElementById("github-langs-card");
             const repo1Img = document.getElementById("github-repo1-card");
             const repo2Img = document.getElementById("github-repo2-card");
+            const repo3Img = document.getElementById("github-repo3-card");
             const chartImg = document.getElementById("github-chart-card");
             
-            if (!langsImg || !repo1Img || !repo2Img || !chartImg) return;
+            if (!langsImg || !repo1Img || !repo2Img || !repo3Img || !chartImg) return;
 
             const theme = document.documentElement.getAttribute("data-theme") || "dark";
 
@@ -2056,6 +2079,7 @@
             // Update repository stats cards
             repo1Img.src = `https://github-stats-extended.vercel.app/api/pin/?username=david1-max&repo=vibe-chat&bg_color=00000000&title_color=${titleColor}&text_color=${textColor}&icon_color=${iconColor}&border_color=00000000&hide_border=true`;
             repo2Img.src = `https://github-stats-extended.vercel.app/api/pin/?username=david1-max&repo=BubbleID-Reproduction&bg_color=00000000&title_color=${titleColor}&text_color=${textColor}&icon_color=${iconColor}&border_color=00000000&hide_border=true`;
+            repo3Img.src = `https://github-stats-extended.vercel.app/api/pin/?username=david1-max&repo=leetcode-solutions&bg_color=00000000&title_color=${titleColor}&text_color=${textColor}&icon_color=${iconColor}&border_color=00000000&hide_border=true`;
             
             // Update contribution graph
             chartImg.src = `https://ghchart.rshah.org/${chartHexColor}/david1-max`;
@@ -2263,6 +2287,21 @@
                     </ul>
                     <br/>
                     <p><b>Technologies:</b> Python, Flask, SQLAlchemy, SQLite, Vanilla JavaScript, HTML5/CSS3, ReportLab.</p>
+                `
+            },
+            leetcode: {
+                title: "LeetCode Solutions",
+                content: `
+                    <p><b>Context:</b> Personal repository created to track daily problem-solving progress on LeetCode. Focuses on data structures and algorithms using Python.</p>
+                    <br/>
+                    <p><b>Core Practices:</b></p>
+                    <ul>
+                        <li>Solve at least one problem daily to maintain analytical consistency.</li>
+                        <li>Implement optimal time and space complexity approaches (e.g., Binary Search, HashMaps, Sliding Windows).</li>
+                        <li>Track solved counts dynamically on the repository dashboard.</li>
+                    </ul>
+                    <br/>
+                    <p><b>Technologies:</b> Python, Algorithms, Data Structures.</p>
                 `
             }
         };
