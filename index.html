@@ -398,6 +398,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
             box-shadow: 0 0 0 1px rgba(16,185,129,0.1), 0 20px 60px rgba(0,0,0,0.3), inset 0 0 40px rgba(16,185,129,0.05);
             transition: var(--transition);
         }
@@ -2735,26 +2736,23 @@
 
         // =============================================
         // SCROLL REVEAL — IntersectionObserver System
+        // Delayed start so boot preloader finishes first
         // =============================================
-        (function initScrollReveal() {
+        function initScrollReveal() {
 
             // ── 1. Tag elements with reveal classes ───────────────────────
-            // Section title wraps → fade up
             document.querySelectorAll('.section-title-wrap').forEach(el => {
                 el.classList.add('reveal', 'reveal-up');
             });
 
-            // Glass cards → scale in with slight upward motion
             document.querySelectorAll('.glass-card').forEach(el => {
                 el.classList.add('reveal', 'reveal-scale');
             });
 
-            // Timeline items → alternating left / right slide
             document.querySelectorAll('.timeline-item').forEach((el, i) => {
                 el.classList.add('reveal', i % 2 === 0 ? 'reveal-left' : 'reveal-right');
             });
 
-            // Project cards → staggered fade up (handled via parent stagger)
             const projGrid = document.querySelector('.projects-grid');
             if (projGrid) {
                 projGrid.classList.add('reveal-stagger');
@@ -2763,7 +2761,6 @@
                 });
             }
 
-            // Skill tags → staggered (add stagger to each skill-list)
             document.querySelectorAll('.skill-list').forEach(list => {
                 list.classList.add('reveal-stagger');
                 list.querySelectorAll('.skill-tag').forEach(tag => {
@@ -2771,43 +2768,43 @@
                 });
             });
 
-            // Contact section items → fade up
             document.querySelectorAll('.contact-info-item').forEach(el => {
                 el.classList.add('reveal', 'reveal-up');
             });
 
-            // Stats cards (GitHub area) → scale in
             document.querySelectorAll('.stats-card, .stats-grid > div').forEach(el => {
                 el.classList.add('reveal', 'reveal-scale');
             });
 
-            // Timeline titles → fade left
             document.querySelectorAll('.timeline-title').forEach(el => {
                 el.classList.add('reveal', 'reveal-left');
             });
-
-            // Hero stats → already visible after boot, skip
-            // Hero social strip → already visible after boot, skip
 
             // ── 2. Create the IntersectionObserver ────────────────────────
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
-                        revealObserver.unobserve(entry.target); // animate only once
+                        revealObserver.unobserve(entry.target);
                     }
                 });
             }, {
-                threshold: 0.12,          // 12% of element must be in viewport
-                rootMargin: '0px 0px -40px 0px'  // trigger 40px before bottom edge
+                threshold: 0.10,
+                rootMargin: '0px 0px -30px 0px'
             });
 
             // ── 3. Observe all tagged elements ────────────────────────────
             document.querySelectorAll('.reveal').forEach(el => {
                 revealObserver.observe(el);
             });
+        }
 
-        })();
+        // ⚠️ Critical: wait until AFTER boot animation completes before
+        // initialising scroll reveal — otherwise the observer fires while
+        // elements are hidden under the preloader and marks them visible
+        // immediately (so no animation ever plays on scroll).
+        // Boot takes ~3.5s total; we add a small buffer → 3800ms.
+        setTimeout(initScrollReveal, 3800);
     </script>
 </body>
 </html>
