@@ -1,6 +1,6 @@
 # DIVYANSHU YADAV
 **Full-Stack Developer & Machine Learning Engineer**  
-📍 Jaipur, India | 📞 +91 9351532707 | ✉️ [divyanshu1.111yadav@gmail.com](mailto:divyanshu1.111yadav@gmail.com)  
+📍 Jaipur, India | 📞 +91 9351532707 | ✉️ [yadavdavid382@gmail.com](mailto:yadavdavid382@gmail.com)  
 🔗 [LinkedIn](https://in.linkedin.com/in/divyanshu-yadav-dk1) | 🐙 [GitHub](https://github.com/david1-max) | 🌐 [Portfolio](https://david1-max.github.io)
 
 ---
@@ -20,9 +20,11 @@ Results-driven Computer Science and Artificial Intelligence student at JK Lakshm
 
 ## CORE TECHNICAL SKILLS
 *   **Programming Languages:** Python, JavaScript (ES6+), C, C++, SQL (SQLite, MySQL)
-*   **Web Development Frameworks:** HTML5, CSS3, Flask (Python), React, Node.js
-*   **Machine Learning & Data Science:** Pandas, NumPy, Scikit-learn, TensorFlow/PyTorch, NLP (NLTK, spaCy)
-*   **Developer Tools & Databases:** Git/GitHub, SQLite, MySQL, VS Code, REST APIs, JSON
+*   **Web Development & Frameworks:** React, Node.js, Express, Flask (Python), HTML5, CSS3
+*   **Machine Learning & Data Science:** Pandas, NumPy, Scikit-learn, TensorFlow/PyTorch, Computer Vision (OpenCV), NLP (NLTK, spaCy)
+*   **Web Technologies & Protocols:** WebSockets, WebRTC, REST APIs, JSON
+*   **Developer Tools & Databases:** Git/GitHub, SQLite, MySQL, VS Code, Docker, Git
+
 
 ---
 

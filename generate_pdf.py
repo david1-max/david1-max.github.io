@@ -100,7 +100,7 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
     
     contact_text = (
         "Jaipur, India  |  +91 9351532707  |  "
-        "<a href='mailto:divyanshu1.111yadav@gmail.com'><font color='#000000'>divyanshu1.111yadav@gmail.com</font></a>  |  "
+        "<a href='mailto:yadavdavid382@gmail.com'><font color='#000000'>yadavdavid382@gmail.com</font></a>  |  "
         "<a href='https://in.linkedin.com/in/divyanshu-yadav-dk1'><font color='#000000'>LinkedIn</font></a>  |  "
         "<a href='https://github.com/david1-max'><font color='#000000'>GitHub</font></a>  |  "
         "<a href='https://david1-max.github.io'><font color='#000000'>Portfolio</font></a>"
@@ -159,9 +159,10 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
     add_section_divider("Core Technical Skills")
     skills_text = (
         "<b>Programming Languages:</b> Python, JavaScript (ES6+), C, C++, SQL (SQLite, MySQL)<br/>"
-        "<b>Web Development Frameworks:</b> React, Node.js, Express, Flask (Python), HTML5, CSS3<br/>"
+        "<b>Web Development & Frameworks:</b> React, Node.js, Express, Flask (Python), HTML5, CSS3<br/>"
         "<b>Machine Learning & Data Science:</b> Pandas, NumPy, Scikit-learn, TensorFlow/PyTorch, Computer Vision (OpenCV), NLP<br/>"
-        "<b>Developer Tools & Databases:</b> Git/GitHub, SQLite, MySQL, VS Code, REST APIs, JSON"
+        "<b>Web Technologies & Protocols:</b> WebSockets, WebRTC, REST APIs, JSON<br/>"
+        "<b>Developer Tools & Databases:</b> Git/GitHub, SQLite, MySQL, VS Code, Docker, Git"
     )
     story.append(Paragraph(skills_text, body_style))
     story.append(Spacer(1, 6))
