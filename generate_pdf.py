@@ -300,7 +300,56 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
     story.append(Paragraph("&bull; Programmed the appraisal scoring engine to compute points based on publication indexes and author order; built custom PDF/Excel exporters.", bullet_style))
     
     story.append(Spacer(1, 6))
-    
+
+    # --- CERTIFICATIONS ---
+    add_section_divider("Certifications")
+
+    certs = [
+        {
+            "name": "Programming with C++",
+            "issuer": "Simplilearn (Coursera)",
+            "date": "Jun 2025",
+            "url": "https://coursera.org/verify/XEBPREKSD9H2",
+            "cid": "XEBPREKSD9H2"
+        },
+        {
+            "name": "Python Data Structures",
+            "issuer": "University of Michigan (Coursera)",
+            "date": "Dec 2024",
+            "url": "https://coursera.org/verify/1VDHAXLCXG9R",
+            "cid": "1VDHAXLCXG9R"
+        },
+        {
+            "name": "Programming for Everybody (Getting Started with Python)",
+            "issuer": "University of Michigan (Coursera)",
+            "date": "Dec 2024",
+            "url": "https://coursera.org/verify/02EE3KE7V869",
+            "cid": "02EE3KE7V869"
+        },
+    ]
+
+    for cert in certs:
+        cert_row = [[
+            Paragraph(f"<b>{cert['name']}</b> — <i>{cert['issuer']}</i>", header_left),
+            Paragraph(cert['date'], header_right)
+        ]]
+        t_cert = Table(cert_row, colWidths=[doc.width * 0.75, doc.width * 0.25])
+        t_cert.setStyle(TableStyle([
+            ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 1),
+            ('TOPPADDING', (0, 0), (-1, -1), 1),
+            ('LEFTPADDING', (0, 0), (-1, -1), 0),
+            ('RIGHTPADDING', (0, 0), (-1, -1), 0),
+        ]))
+        story.append(t_cert)
+        story.append(Paragraph(
+            f"&bull; Credential ID: <a href='{cert['url']}'><font color='#000000'>{cert['cid']}</font></a>",
+            bullet_style
+        ))
+        story.append(Spacer(1, 3))
+
+    story.append(Spacer(1, 4))
+
     # --- ACTIVITIES ---
     add_section_divider("Awards & Activities")
     story.append(Paragraph("&bull; <b>Academic Honors:</b> Consistently recognized on the Dean's List / Honors List for outstanding academic performance.", bullet_style))
