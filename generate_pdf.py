@@ -306,6 +306,13 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
 
     certs = [
         {
+            "name": "SQL (Intermediate) Skill Certification",
+            "issuer": "HackerRank",
+            "date": "Jul 2026",
+            "url": "https://www.hackerrank.com/certificates/62122ef2428b",
+            "cid": "62122ef2428b"
+        },
+        {
             "name": "Problem Solving (Basic) Skill Certification",
             "issuer": "HackerRank",
             "date": "Jul 2026",
