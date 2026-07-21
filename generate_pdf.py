@@ -10,16 +10,15 @@ from reportlab.pdfgen import canvas
 class PageNumCanvas(canvas.Canvas):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.pages = []
+        self.page_count = 0
 
     def showPage(self):
-        self.pages.append(dict(self.__dict__))
-        self._startPage()
+        self.page_count += 1
+        super().showPage()
 
     def save(self):
-        page_count = len(self.pages)
-        if page_count > 1:
-            print(f"WARNING: Generated PDF has {page_count} pages! Exceeds 1-page target.")
+        if self.page_count > 1:
+            print(f"WARNING: Generated PDF has {self.page_count} pages! Exceeds 1-page target.")
         else:
             print("SUCCESS: PDF is exactly 1 page.")
         super().save()
