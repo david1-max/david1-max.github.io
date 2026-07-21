@@ -1,0 +1,195 @@
+\documentclass[letterpaper,10pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+% Font options
+\RequirePackage{etoolbox}
+\RequirePackage[sfdefault]{FiraSans}
+\RequirePackage[default]{sourcesanspro}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large\bfseries
+}{}{0em}{}[\color{black}\hidewidth\titlerule\vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Divyanshu Yadav} \\ \vspace{8pt}
+    \small Jaipur, India $|$ +91 9351532707 $|$ 
+    \href{mailto:yadavdavid382@gmail.com}{\underline{yadavdavid382@gmail.com}} $|$ 
+    \href{https://linkedin.com/in/divyanshu-yadav-dk1}{\underline{LinkedIn}} $|$ 
+    \href{https://github.com/david1-max}{\underline{GitHub}} $|$ 
+    \href{https://david1-max.github.io}{\underline{Portfolio}}
+\end{center}
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {JK Lakshmipat University}{Jaipur, India}
+      {Bachelor of Technology in Computer Science \& Engineering (Specialization: AI)}{Expected 2028}
+      \resumeItemListStart
+        \resumeItem{Academic Standing: Honors List / Dean's List for academic excellence.}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+%-----------PROGRAMMING SKILLS-----------
+\section{Core Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Programming Languages}{: Python, JavaScript (ES6+), C, C++, SQL (SQLite, MySQL)} \\
+     \textbf{Web Development \& Frameworks}{: React, Node.js, Express, Flask (Python), HTML5, CSS3} \\
+     \textbf{Machine Learning \& Data Science}{: Pandas, NumPy, Scikit-learn, TensorFlow/PyTorch, OpenCV, NLP} \\
+     \textbf{Web Protocols \& Tools}{: WebSockets, WebRTC, REST APIs, JSON, Docker, Git/GitHub}
+    }}
+ \end{itemize}
+
+%-----------EXPERIENCE-----------
+\section{Professional Experience \& Internships}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {JK Lakshmipat University}{Jaipur, India}
+      {Full-Stack Summer Intern}{May 2026 -- July 2026}
+      \resumeItemListStart
+        \resumeItem{Solely architected and developed \textbf{Samiksha}, a student feedback mechanism and appraisal portal to aid teaching processes.}
+        \resumeItem{Designed intuitive dashboards for student input and administrative reporting, improving system transparency.}
+        \resumeItem{Optimized backend database queries, reducing data retrieval and feedback-processing time by 30\%.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {JK Lakshmipat University}{Jaipur, India}
+      {Teaching Assistant (Python \& C)}{Aug 2025 -- Present}
+      \resumeItemListStart
+        \resumeItem{Instructed lab sessions and debugged foundational code for a batch of 60+ undergraduate students.}
+        \resumeItem{Evaluated student assignments and designed comprehensive programming exercises under the professor's guidance.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \resumeSubHeadingListStart
+      
+      \resumeProjectHeading
+        {\textbf{BubbleID-Reproduction} $|$ \emph{Deep Learning \& Computer Vision}}{}
+        \resumeItemListStart
+          \resumeItem{Replicated the state-of-the-art BubbleID deep learning framework designed to study pool boiling heat transfer processes.}
+          \resumeItem{Built an image processing pipeline utilizing Mask R-CNN for pixel-level semantic segmentation of vapor bubbles.}
+          \resumeItem{Integrated OC-SORT to track bubble trajectories and nucleation events across high-speed video frames.}
+        \resumeItemListEnd
+        
+      \resumeProjectHeading
+        {\textbf{vibe-chat} $|$ \emph{Real-time Messaging \& Video Calling Platform}}{}
+        \resumeItemListStart
+          \resumeItem{Engineered a web communication platform allowing users to interact via real-time messaging and peer video rooms.}
+          \resumeItem{Designed a bi-directional event-driven signaling channel using Socket.io to enable instant text messaging.}
+          \resumeItem{Implemented low-latency audio/video calling using WebRTC peer-to-peer protocols and STUN/TURN servers.}
+        \resumeItemListEnd
+
+      \resumeProjectHeading
+        {\textbf{LeetCode Solutions} $|$ \emph{Data Structures \& Algorithms}}{}
+        \resumeItemListStart
+          \resumeItem{Created a personal repository for daily problem-solving to master advanced algorithm designs and computational efficiency.}
+          \resumeItem{Solved multiple complexity levels documenting time/space complexity analysis (Big-O notation) for every solution.}
+        \resumeItemListEnd
+
+      \resumeProjectHeading
+        {\textbf{JKLU Appraisal System} $|$ \emph{Full-Stack Performance Portal (Private Repository)}}{}
+        \resumeItemListStart
+          \resumeItem{Developed key modules of an enterprise performance appraisal system designed to digitize academic evaluations.}
+          \resumeItem{Designed relational database models using Flask-SQLAlchemy to capture publications, patents, and teaching feedback.}
+        \resumeItemListEnd
+
+    \resumeSubHeadingListEnd
+
+%-----------CERTIFICATIONS-----------
+\section{Certifications}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{HackerRank}{: SQL (Intermediate) [62122ef2428b], Problem Solving (Basic) [c4a79f66666b], SQL (Basic) [bbf6076ae8f9], Python (Basic) [7fdc5f0187af] (Jul 2026)} \\
+     \textbf{Coursera}{: Programming with C++ (Simplilearn) [XEBPREKSD9H2] (Jun 2025), Python Data Structures (Michigan) [1VDHAXLCXG9R] (Dec 2024), Programming for Everybody (Michigan) [02EE3KE7V869] (Dec 2024)}
+    }}
+ \end{itemize}
+
+%-----------AWARDS & ACTIVITIES-----------
+\section{Awards \& Activities}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Academic Honors}{: Consistently recognized on the Dean's List / Honors List for outstanding academic performance.} \\
+     \textbf{Extracurriculars}{: Active squad player for the JKLU Cricket Team, competing in inter-university tournaments.}
+    }}
+ \end{itemize}
+
+\end{document}
