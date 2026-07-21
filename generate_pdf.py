@@ -306,6 +306,20 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
 
     certs = [
         {
+            "name": "Problem Solving (Basic) Skill Certification",
+            "issuer": "HackerRank",
+            "date": "Jul 2026",
+            "url": "https://www.hackerrank.com/certificates/c4a79f66666b",
+            "cid": "c4a79f66666b"
+        },
+        {
+            "name": "SQL (Basic) Skill Certification",
+            "issuer": "HackerRank",
+            "date": "Jul 2026",
+            "url": "https://www.hackerrank.com/certificates/bbf6076ae8f9",
+            "cid": "bbf6076ae8f9"
+        },
+        {
             "name": "Python (Basic) Skill Certification",
             "issuer": "HackerRank",
             "date": "Jul 2026",
