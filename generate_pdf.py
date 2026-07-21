@@ -5,6 +5,24 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, Tabl
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
 from reportlab.graphics.shapes import Drawing, Line
+from reportlab.pdfgen import canvas
+
+class PageNumCanvas(canvas.Canvas):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.pages = []
+
+    def showPage(self):
+        self.pages.append(dict(self.__dict__))
+        self._startPage()
+
+    def save(self):
+        page_count = len(self.pages)
+        if page_count > 1:
+            print(f"WARNING: Generated PDF has {page_count} pages! Exceeds 1-page target.")
+        else:
+            print("SUCCESS: PDF is exactly 1 page.")
+        super().save()
 
 def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
     # Target page layout
@@ -13,8 +31,8 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
         pagesize=letter,
         rightMargin=36,
         leftMargin=36,
-        topMargin=36,
-        bottomMargin=36
+        topMargin=24,
+        bottomMargin=24
     )
     
     styles = getSampleStyleSheet()
@@ -29,8 +47,8 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
         'DocTitle',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=20,
-        leading=24,
+        fontSize=18,
+        leading=22,
         textColor=PRIMARY_COLOR,
         alignment=1 # Centered
     )
@@ -39,8 +57,8 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
         'DocContact',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=9,
-        leading=12,
+        fontSize=8.5,
+        leading=11,
         textColor=ACCENT_COLOR,
         alignment=1 # Centered
     )
@@ -49,20 +67,22 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
         'SectionHeading',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=11,
-        leading=14,
+        fontSize=9.5,
+        leading=12,
         textColor=PRIMARY_COLOR,
-        spaceBefore=8,
-        spaceAfter=3
+        spaceBefore=4,
+        spaceAfter=1
     )
     
     body_style = ParagraphStyle(
         'BodyTextCustom',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=9.5,
-        leading=12.5,
-        textColor=TEXT_COLOR
+        fontSize=8.2,
+        leading=10.5,
+        textColor=TEXT_COLOR,
+        spaceBefore=0,
+        spaceAfter=0
     )
     
     bullet_style = ParagraphStyle(
@@ -70,33 +90,38 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
         parent=body_style,
         leftIndent=12,
         firstLineIndent=-8,
-        spaceAfter=2
+        spaceBefore=0,
+        spaceAfter=1
     )
     
     header_left = ParagraphStyle(
         'HeaderLeft',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=9.5,
-        leading=12,
-        textColor=TEXT_COLOR
+        fontSize=8.2,
+        leading=10.5,
+        textColor=TEXT_COLOR,
+        spaceBefore=0,
+        spaceAfter=0
     )
     
     header_right = ParagraphStyle(
         'HeaderRight',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=9.5,
-        leading=12,
+        fontSize=8.2,
+        leading=10.5,
         textColor=ACCENT_COLOR,
-        alignment=2 # Right aligned
+        alignment=2, # Right aligned
+        spaceBefore=0,
+        spaceAfter=0
     )
 
     story = []
     
     # --- HEADER / CONTACT INFO ---
     story.append(Paragraph("DIVYANSHU YADAV", title_style))
-    story.append(Spacer(1, 4))
+    story.append(Spacer(1, 2))
     
     contact_text = (
         "Jaipur, India  |  +91 9351532707  |  "
@@ -106,15 +131,15 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
         "<a href='https://david1-max.github.io'><font color='#000000'>Portfolio</font></a>"
     )
     story.append(Paragraph(contact_text, contact_style))
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 4))
     
     def add_section_divider(title):
         story.append(Paragraph(title.upper(), section_heading))
         # Draw a horizontal line
-        d = Drawing(doc.width, 3)
+        d = Drawing(doc.width, 2)
         d.add(Line(0, 1, doc.width, 1, strokeColor=PRIMARY_COLOR, strokeWidth=1))
         story.append(d)
-        story.append(Spacer(1, 4))
+        story.append(Spacer(1, 2))
         
     # --- SUMMARY ---
     add_section_divider("Professional Summary")
@@ -126,7 +151,7 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
         "Eager to leverage strong technical capabilities to drive impact as a Full-Stack Developer or Machine Learning intern."
     )
     story.append(Paragraph(summary_text, body_style))
-    story.append(Spacer(1, 6))
+    story.append(Spacer(1, 3))
     
     # --- EDUCATION ---
     add_section_divider("Education")
@@ -153,7 +178,7 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
         ('RIGHTPADDING', (0,0), (-1,-1), 0),
     ]))
     story.append(t)
-    story.append(Spacer(1, 6))
+    story.append(Spacer(1, 2))
     
     # --- SKILLS ---
     add_section_divider("Core Technical Skills")
@@ -165,7 +190,7 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
         "<b>Developer Tools & Databases:</b> Git/GitHub, SQLite, MySQL, VS Code, Docker, Git"
     )
     story.append(Paragraph(skills_text, body_style))
-    story.append(Spacer(1, 6))
+    story.append(Spacer(1, 2))
     
     # --- EXPERIENCE ---
     add_section_divider("Professional Experience & Internships")
@@ -190,7 +215,7 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
     story.append(Paragraph("&bull; Solely architected and developed <b>Samiksha</b>, a student-centered feedback mechanism and appraisal portal to aid teaching processes.", bullet_style))
     story.append(Paragraph("&bull; Designed intuitive dashboards for student input and administrative reporting, improving system transparency.", bullet_style))
     story.append(Paragraph("&bull; Optimized backend database queries, reducing data retrieval and feedback-processing time by 30%.", bullet_style))
-    story.append(Spacer(1, 4))
+    story.append(Spacer(1, 2))
     
     # TA
     exp2_header = [
@@ -210,8 +235,7 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
     story.append(t_exp2)
     story.append(Paragraph("&bull; Instructed lab sessions and debugged foundational code for a batch of 60+ undergraduate students.", bullet_style))
     story.append(Paragraph("&bull; Evaluated student assignments and designed comprehensive programming exercises under the professor's guidance.", bullet_style))
-    
-    story.append(Spacer(1, 6))
+    story.append(Spacer(1, 2))
     
     # --- PROJECTS ---
     add_section_divider("Projects")
@@ -235,7 +259,7 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
     story.append(Paragraph("&bull; Replicated and benchmarked the state-of-the-art BubbleID deep learning framework designed to study pool boiling heat transfer processes.", bullet_style))
     story.append(Paragraph("&bull; Built a high-performance image processing pipeline utilizing Mask R-CNN for pixel-level semantic segmentation of vapor bubbles.", bullet_style))
     story.append(Paragraph("&bull; Integrated OC-SORT (Observation-Centric SORT) to track bubble trajectories, nucleation, and departure events across high-speed video frames.", bullet_style))
-    story.append(Spacer(1, 4))
+    story.append(Spacer(1, 2))
     
     # vibe-chat
     p2_header = [
@@ -256,7 +280,7 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
     story.append(Paragraph("&bull; Engineered a responsive, full-featured web communication platform allowing users to interact via real-time messaging and peer video rooms.", bullet_style))
     story.append(Paragraph("&bull; Designed a bi-directional event-driven signaling channel using Socket.io to enable instant text messaging and room synchronizations.", bullet_style))
     story.append(Paragraph("&bull; Implemented low-latency audio/video calling using WebRTC peer-to-peer protocols and STUN/TURN servers to establish secure connections.", bullet_style))
-    story.append(Spacer(1, 4))
+    story.append(Spacer(1, 2))
     
     # LeetCode Solutions
     p_lc_header = [
@@ -277,7 +301,7 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
     story.append(Paragraph("&bull; Created a personal repository for daily problem-solving to master advanced algorithm designs and computational efficiency.", bullet_style))
     story.append(Paragraph("&bull; Solved multiple complexity levels using optimal time/space methods (e.g. Binary Search, Two-pointers, HashMaps).", bullet_style))
     story.append(Paragraph("&bull; Documented complexity analysis (Big-O notation) and mathematical optimizations for every solution.", bullet_style))
-    story.append(Spacer(1, 4))
+    story.append(Spacer(1, 2))
     
     # Appraisal System
     p3_header = [
@@ -299,7 +323,7 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
     story.append(Paragraph("&bull; Designed relational database models using Flask-SQLAlchemy to capture publications, patents, and teaching feedback.", bullet_style))
     story.append(Paragraph("&bull; Programmed the appraisal scoring engine to compute points based on publication indexes and author order; built custom PDF/Excel exporters.", bullet_style))
     
-    story.append(Spacer(1, 6))
+    story.append(Spacer(1, 2))
 
     # --- CERTIFICATIONS ---
     add_section_divider("Certifications")
@@ -327,7 +351,7 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
     story.append(Paragraph("&bull; <b>Academic Honors:</b> Consistently recognized on the Dean's List / Honors List for outstanding academic performance.", bullet_style))
     story.append(Paragraph("&bull; <b>Extracurriculars:</b> Active squad player for the JKLU Cricket Team, competing in inter-university tournaments.", bullet_style))
     
-    doc.build(story)
+    doc.build(story, canvasmaker=PageNumCanvas)
     print("PDF Generation complete.")
 
 if __name__ == "__main__":
