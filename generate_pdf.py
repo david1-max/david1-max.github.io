@@ -306,6 +306,13 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
 
     certs = [
         {
+            "name": "Python (Basic) Skill Certification",
+            "issuer": "HackerRank",
+            "date": "Jul 2026",
+            "url": "https://www.hackerrank.com/certificates/7fdc5f0187af",
+            "cid": "7fdc5f0187af"
+        },
+        {
             "name": "Programming with C++",
             "issuer": "Simplilearn (Coursera)",
             "date": "Jun 2025",
