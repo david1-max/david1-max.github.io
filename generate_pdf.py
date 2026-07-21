@@ -304,79 +304,23 @@ def build_pdf(filename=r"c:\Users\AIO-ELIB-02\portfolio-site\resume.pdf"):
     # --- CERTIFICATIONS ---
     add_section_divider("Certifications")
 
-    certs = [
-        {
-            "name": "SQL (Intermediate) Skill Certification",
-            "issuer": "HackerRank",
-            "date": "Jul 2026",
-            "url": "https://www.hackerrank.com/certificates/62122ef2428b",
-            "cid": "62122ef2428b"
-        },
-        {
-            "name": "Problem Solving (Basic) Skill Certification",
-            "issuer": "HackerRank",
-            "date": "Jul 2026",
-            "url": "https://www.hackerrank.com/certificates/c4a79f66666b",
-            "cid": "c4a79f66666b"
-        },
-        {
-            "name": "SQL (Basic) Skill Certification",
-            "issuer": "HackerRank",
-            "date": "Jul 2026",
-            "url": "https://www.hackerrank.com/certificates/bbf6076ae8f9",
-            "cid": "bbf6076ae8f9"
-        },
-        {
-            "name": "Python (Basic) Skill Certification",
-            "issuer": "HackerRank",
-            "date": "Jul 2026",
-            "url": "https://www.hackerrank.com/certificates/7fdc5f0187af",
-            "cid": "7fdc5f0187af"
-        },
-        {
-            "name": "Programming with C++",
-            "issuer": "Simplilearn (Coursera)",
-            "date": "Jun 2025",
-            "url": "https://coursera.org/verify/XEBPREKSD9H2",
-            "cid": "XEBPREKSD9H2"
-        },
-        {
-            "name": "Python Data Structures",
-            "issuer": "University of Michigan (Coursera)",
-            "date": "Dec 2024",
-            "url": "https://coursera.org/verify/1VDHAXLCXG9R",
-            "cid": "1VDHAXLCXG9R"
-        },
-        {
-            "name": "Programming for Everybody (Getting Started with Python)",
-            "issuer": "University of Michigan (Coursera)",
-            "date": "Dec 2024",
-            "url": "https://coursera.org/verify/02EE3KE7V869",
-            "cid": "02EE3KE7V869"
-        },
-    ]
+    hr_certs = (
+        "<b>HackerRank:</b> "
+        "SQL (Intermediate) [<a href='https://www.hackerrank.com/certificates/62122ef2428b'><font color='#000000'>62122ef2428b</font></a>], "
+        "Problem Solving (Basic) [<a href='https://www.hackerrank.com/certificates/c4a79f66666b'><font color='#000000'>c4a79f66666b</font></a>], "
+        "SQL (Basic) [<a href='https://www.hackerrank.com/certificates/bbf6076ae8f9'><font color='#000000'>bbf6076ae8f9</font></a>], "
+        "Python (Basic) [<a href='https://www.hackerrank.com/certificates/7fdc5f0187af'><font color='#000000'>7fdc5f0187af</font></a>]"
+    )
+    story.append(Paragraph(f"&bull; {hr_certs}", bullet_style))
 
-    for cert in certs:
-        cert_row = [[
-            Paragraph(f"<b>{cert['name']}</b> — <i>{cert['issuer']}</i>", header_left),
-            Paragraph(cert['date'], header_right)
-        ]]
-        t_cert = Table(cert_row, colWidths=[doc.width * 0.75, doc.width * 0.25])
-        t_cert.setStyle(TableStyle([
-            ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-            ('BOTTOMPADDING', (0, 0), (-1, -1), 1),
-            ('TOPPADDING', (0, 0), (-1, -1), 1),
-            ('LEFTPADDING', (0, 0), (-1, -1), 0),
-            ('RIGHTPADDING', (0, 0), (-1, -1), 0),
-        ]))
-        story.append(t_cert)
-        story.append(Paragraph(
-            f"&bull; Credential ID: <a href='{cert['url']}'><font color='#000000'>{cert['cid']}</font></a>",
-            bullet_style
-        ))
-        story.append(Spacer(1, 3))
-
-    story.append(Spacer(1, 4))
+    coursera_certs = (
+        "<b>Coursera:</b> "
+        "Programming with C++ (Simplilearn) [<a href='https://coursera.org/verify/XEBPREKSD9H2'><font color='#000000'>XEBPREKSD9H2</font></a>], "
+        "Python Data Structures (Michigan) [<a href='https://coursera.org/verify/1VDHAXLCXG9R'><font color='#000000'>1VDHAXLCXG9R</font></a>], "
+        "Programming for Everybody (Michigan) [<a href='https://coursera.org/verify/02EE3KE7V869'><font color='#000000'>02EE3KE7V869</font></a>]"
+    )
+    story.append(Paragraph(f"&bull; {coursera_certs}", bullet_style))
+    story.append(Spacer(1, 2))
 
     # --- ACTIVITIES ---
     add_section_divider("Awards & Activities")
