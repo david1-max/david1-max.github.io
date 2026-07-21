@@ -24,7 +24,7 @@
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 
-% Adjust margins
+% Adjust margins for a balanced 2-page layout
 \addtolength{\oddsidemargin}{-0.5in}
 \addtolength{\evensidemargin}{-0.5in}
 \addtolength{\textwidth}{1in}
@@ -39,8 +39,8 @@
 
 % Sections formatting
 \titleformat{\section}{
-  \vspace{-4pt}\scshape\raggedright\large\bfseries
-}{}{0em}{}[\color{black}\hidewidth\titlerule\vspace{-5pt}]
+  \vspace{-3pt}\scshape\raggedright\large\bfseries
+}{}{0em}{}[\color{black}\hidewidth\titlerule\vspace{-4pt}]
 
 % Ensure that generate pdf is machine readable/ATS parsable
 \pdfgentounicode=1
@@ -58,14 +58,14 @@
     \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
       \textbf{#1} & #2 \\
       \textit{\small#3} & \textit{\small #4} \\
-    \end{tabular*}\vspace{-7pt}
+    \end{tabular*}\vspace{-5pt}
 }
 
 \newcommand{\resumeProjectHeading}[2]{
     \item
     \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
       \small#1 & #2 \\
-    \end{tabular*}\vspace{-7pt}
+    \end{tabular*}\vspace{-5pt}
 }
 
 \newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
@@ -109,6 +109,7 @@
       {Bachelor of Technology in Computer Science \& Engineering (Specialization: AI)}{Expected 2028}
       \resumeItemListStart
         \resumeItem{Academic Standing: Honors List / Dean's List for academic excellence.}
+        \resumeItem{\textbf{Relevant Coursework}: Data Structures \& Algorithms, Object-Oriented Programming (C++), Database Management Systems (SQL), Operating Systems, Software Engineering, Deep Learning, Computer Vision.}
       \resumeItemListEnd
   \resumeSubHeadingListEnd
 
@@ -134,6 +135,7 @@
         \resumeItem{Solely architected, developed, and deployed \textbf{Samiksha}, an end-to-end feedback and performance appraisal portal using Flask and SQLite.}
         \resumeItem{Implemented secure role-based access control (RBAC) separating dashboards for students, administrative faculty, and university headers.}
         \resumeItem{Engineered the core feedback analysis engine to compute multidimensional evaluation metrics; optimized SQLite database queries and indices to reduce system query latency by 30\%.}
+        \resumeItem{Developed interactive frontend reporting interfaces that dynamically render statistical summaries and student response frequencies.}
       \resumeItemListEnd
 
     \resumeSubheading
@@ -142,9 +144,12 @@
       \resumeItemListStart
         \resumeItem{Instructed weekly lab sessions on loops, functions, memory allocation, and basic data structures for a batch of over 60 undergraduate students.}
         \resumeItem{Conducted code reviews, debugged pointer arithmetic and allocation errors in C, and designed coding challenges to test programming logic.}
+        \resumeItem{Collaborated with professors to evaluate mid-term and end-term assignments and maintain academic grading records.}
       \resumeItemListEnd
 
   \resumeSubHeadingListEnd
+
+\newpage
 
 %-----------PROJECTS-----------
 \section{Projects}
@@ -156,6 +161,7 @@
           \resumeItem{Replicated and benchmarked the state-of-the-art BubbleID computer vision framework used to automate heat transfer research.}
           \resumeItem{Configured and fine-tuned a Mask R-CNN network in PyTorch to perform pixel-level semantic segmentation on vapor bubble contours.}
           \resumeItem{Integrated the Observation-Centric SORT (OC-SORT) tracking algorithm to measure bubble nucleation frequencies, growth rates, departure diameters, and vertical velocities across high-speed video frames.}
+          \resumeItem{Developed data exporting scripts to generate detailed analytical charts visualizing heat transfer coefficients over time.}
         \resumeItemListEnd
         
       \resumeProjectHeading
@@ -164,6 +170,7 @@
           \resumeItem{Built a real-time messaging and peer-to-peer video conferencing application using React on the frontend and Express/Node.js on the backend.}
           \resumeItem{Designed a bi-directional signaling channel using Socket.io to manage room creation, text broadcasting, and real-time state synchronization.}
           \resumeItem{Established low-latency P2P audio/video media connections using WebRTC, utilizing STUN/TURN servers to bypass NAT firewalls.}
+          \resumeItem{Optimized frontend layout using CSS Grid and Flexbox to support responsive screen scaling across desktop and mobile browsers.}
         \resumeItemListEnd
 
       \resumeProjectHeading
@@ -171,6 +178,7 @@
         \resumeItemListStart
           \resumeItem{Maintained a structured, publicly documented repository solving algorithm challenges (Easy/Medium) covering sliding windows, monotonic stacks, and two-pointer traversals.}
           \resumeItem{Analyzed and logged rigorous time and space complexities (Big-O notation) for every solution to ensure optimal CPU and memory usage.}
+          \resumeItem{Implemented custom unit tests to verify corner cases and ensure solution stability under extreme input boundaries.}
         \resumeItemListEnd
 
       \resumeProjectHeading
@@ -179,6 +187,7 @@
           \resumeItem{Programmed key features of a performance scoring portal to automate yearly university faculty evaluations.}
           \resumeItem{Designed a normalized MySQL database schema mapping publications, patents, teaching feedback scores, and research grants.}
           \resumeItem{Developed the scoring engine to compute final appraisal points based on publication index classes (Scopus, SCI, UGC Care) and author weight coefficients.}
+          \resumeItem{Integrated an automated PDF report generator that exports completed evaluation summaries for administrative records.}
         \resumeItemListEnd
 
     \resumeSubHeadingListEnd
